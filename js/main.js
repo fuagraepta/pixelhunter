@@ -1,5 +1,3 @@
-"use strict";
-
 const body = document.querySelector(`body`);
 // const greeting = body.querySelector(`#greeting`).content;
 // const rules = body.querySelector(`#rules`).content;
@@ -23,10 +21,10 @@ const screenControl = {
     return (this._index <= 0) ? this._index : this._index--;
   },
   _switchScreen() {
-    const centralScreen = body.querySelector(`.central`);
+    const mainScreen = body.querySelector(`#main`);
     const element = body.querySelector(this._screens[this._index]).content.cloneNode(true);
-    centralScreen.innerHTML = ``;
-    centralScreen.append(element);
+    mainScreen.innerHTML = ``;
+    mainScreen.append(element);
   }
 };
 
