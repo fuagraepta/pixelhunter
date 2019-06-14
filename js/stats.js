@@ -1,4 +1,5 @@
-import {getElementFromTemplate, changeScreen} from './js/util.js';
+import {getElementFromTemplate, changeScreen} from '../js/util.js';
+import greetingScreen from '../js/greeting.js';
 
 const statsTemplate = `<header class="header">
   <button class="back">
@@ -113,5 +114,12 @@ const statsTemplate = `<header class="header">
 </section>`;
 
 const statsScreen = getElementFromTemplate(statsTemplate);
+
+// Switch the stats screen to the greeting screen by pressing the arrow-button
+const backButton = statsScreen.querySelector(`.back`);
+
+backButton.addEventListener(`click`, () => {
+  changeScreen(greetingScreen);
+});
 
 export default statsScreen;

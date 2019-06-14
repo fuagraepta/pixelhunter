@@ -1,4 +1,6 @@
-import {getElementFromTemplate, changeScreen} from './js/util.js';
+import {getElementFromTemplate, changeScreen} from '../js/util.js';
+import greetingScreen from '../js/greeting.js';
+import statsScreen from '../js/stats.js';
 
 const gameThreeTemplate = `<header class="header">
   <button class="back">
@@ -44,6 +46,23 @@ const gameThreeTemplate = `<header class="header">
   </ul>
 </section>`;
 
+
 const gameThreeScreen = getElementFromTemplate(gameThreeTemplate);
+
+// Switch the game-3 screen to the greeting screen by pressing the arrow-button
+const backButton = gameThreeScreen.querySelector(`.back`);
+
+backButton.addEventListener(`click`, () => {
+  changeScreen(greetingScreen);
+});
+
+// Switch the game-3 screen to the stats screen when you select any of the answers
+const gameOptions = gameThreeScreen.querySelectorAll(`.game__option`);
+
+for (const option of gameOptions) {
+  option.addEventListener(`click`, () => {
+    changeScreen(statsScreen);
+  });
+}
 
 export default gameThreeScreen;

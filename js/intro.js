@@ -1,4 +1,4 @@
-import {getElementFromTemplate, changeScreen} from './js/util.js';
+import {getElementFromTemplate} from '../js/util.js';
 
 const introTemplete = `<section id="intro" class="intro">
   <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>

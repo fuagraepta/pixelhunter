@@ -1,4 +1,6 @@
-import {getElementFromTemplate, changeScreen} from './js/util.js';
+import {getElementFromTemplate, changeScreen} from '../js/util.js';
+import greetingScreen from '../js/greeting.js';
+import gameTwoScreen from '../js/game-2.js';
 
 const gameOneTemplate = `<header class="header">
   <button class="back">
@@ -58,5 +60,26 @@ const gameOneTemplate = `<header class="header">
 </section>`;
 
 const gameOneScreen = getElementFromTemplate(gameOneTemplate);
+
+// Switch the game-1 screen to the greeting screen by pressing the arrow-button
+const backButton = gameOneScreen.querySelector(`.back`);
+
+backButton.addEventListener(`click`, () => {
+  changeScreen(greetingScreen);
+});
+
+// Switch the game-1 screen to the game-2 screen when both answers are selected
+const gameContent = gameOneScreen.querySelector(`.game__content`);
+
+const ongameContentChange = () => {
+  const answerNumber = 2;
+  const questions = gameOneScreen.querySelectorAll(`input`);
+  if (Array.from(questions).filter((question) => question.checked === true).length === answerNumber) {
+    changeScreen(gameTwoScreen);
+  }
+};
+
+gameContent.addEventListener(`change`, ongameContentChange);
+
 
 export default gameOneScreen;

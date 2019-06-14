@@ -1,4 +1,6 @@
-import {getElementFromTemplate, changeScreen} from './js/util.js';
+import {getElementFromTemplate, changeScreen} from '../js/util.js';
+import greetingScreen from '../js/greeting.js';
+import gameOneScreen from '../js/game-1.js';
 
 const rulesTemplate = `<header class="header">
   <button class="back">
@@ -29,5 +31,27 @@ const rulesTemplate = `<header class="header">
 </section>`;
 
 const rulesScreen = getElementFromTemplate(rulesTemplate);
+
+// Switch the rules screen to the greeting screen by pressing the arrow-button
+const backButton = rulesScreen.querySelector(`.back`);
+
+backButton.addEventListener(`click`, () => {
+  changeScreen(greetingScreen);
+});
+
+// When entering data the button "GO" unlocks
+const rulesInput = rulesScreen.querySelector(`.rules__input`);
+const rulesButton = rulesScreen.querySelector(`.rules__button`);
+
+const onRulesInputChange = (evt) => {
+  evt.preventDefault();
+  rulesButton.disabled = (rulesInput.value) ? false : true;
+};
+
+// Switch the rules screen to the game-1 screen by pressing "GO"
+rulesInput.addEventListener(`input`, onRulesInputChange);
+rulesButton.addEventListener(`click`, () => {
+  changeScreen(gameOneScreen);
+});
 
 export default rulesScreen;

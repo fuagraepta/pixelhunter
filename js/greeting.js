@@ -1,4 +1,5 @@
-import {getElementFromTemplate, changeScreen} from './js/util.js';
+import {getElementFromTemplate, changeScreen} from '../js/util.js';
+import rulesScreen from '../js/rules.js';
 
 const greetingTemplate = `<section class="greeting central--blur">
   <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
@@ -25,5 +26,12 @@ const greetingTemplate = `<section class="greeting central--blur">
 </section>`;
 
 const greetingScreen = getElementFromTemplate(greetingTemplate);
+
+// Switch the greeting screen to the rules screen by pressing the arrow-button
+const greetingContinueButton = greetingScreen.querySelector(`.greeting__continue`);
+
+greetingContinueButton.addEventListener(`click`, () => {
+  changeScreen(rulesScreen);
+});
 
 export default greetingScreen;
