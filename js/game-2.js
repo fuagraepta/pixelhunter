@@ -1,25 +1,10 @@
 import {getElementFromTemplate, changeScreen} from '../js/util.js';
-import greetingScreen from '../js/greeting.js';
 import gameThreeScreen from '../js/game-3.js';
+import header from '../js/header.js';
+import INITIAL_GAME from '../js/data.js';
+import progressBar from '../js/stats-bar.js';
 
-const gameTwoTemplate = `<header class="header">
-  <button class="back">
-    <span class="visually-hidden">Вернуться к началу</span>
-    <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-      <use xlink:href="img/sprite.svg#arrow-left"></use>
-    </svg>
-    <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-      <use xlink:href="img/sprite.svg#logo-small"></use>
-    </svg>
-  </button>
-  <div class="game__timer">NN</div>
-  <div class="game__lives">
-    <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="31" height="27">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-  </div>
-</header>
-<section class="game">
+const gameTwoTemplate = `<section class="game">
   <p class="game__task">Угадай, фото или рисунок?</p>
   <form class="game__content  game__content--wide">
     <div class="game__option">
@@ -34,35 +19,16 @@ const gameTwoTemplate = `<header class="header">
       </label>
     </div>
   </form>
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
 </section>`;
 
 const gameTwoScreen = getElementFromTemplate(gameTwoTemplate);
-
-// Switch the game-2 screen to the greeting screen by pressing the arrow-button
-const backButton = gameTwoScreen.querySelector(`.back`);
-
-backButton.addEventListener(`click`, () => {
-  changeScreen(greetingScreen);
-});
 
 // Switch the game-2 screen to the game-3 screen when you select any of the answers
 const gameAnswers = gameTwoScreen.querySelectorAll(`.game__answer`);
 
 for (const answer of gameAnswers) {
   answer.addEventListener(`click`, () => {
-    changeScreen(gameThreeScreen);
+    changeScreen(gameThreeScreen, header(INITIAL_GAME), progressBar);
   });
 }
 

@@ -1,5 +1,6 @@
 import {getElementFromTemplate, changeScreen} from '../js/util.js';
 import rulesScreen from '../js/rules.js';
+import header from '../js/header.js';
 
 const greetingTemplate = `<section class="greeting central--blur">
   <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
@@ -31,7 +32,7 @@ const greetingScreen = getElementFromTemplate(greetingTemplate);
 const greetingContinueButton = greetingScreen.querySelector(`.greeting__continue`);
 
 greetingContinueButton.addEventListener(`click`, () => {
-  changeScreen(rulesScreen);
+  changeScreen(rulesScreen, header());
 });
 
 export default greetingScreen;
