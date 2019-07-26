@@ -8,13 +8,10 @@ const getElementFromTemplate = (template) => {
 const mainScreen = document.querySelector(`#main`);
 // const mainHeader = document.querySelector(`header`);
 
-const changeScreen = (mainContent, headerContent, statsContent) => {
+const changeScreen = (mainContent, headerContent) => {
   mainScreen.innerHTML = ``;
   if (headerContent) {
     mainScreen.appendChild(headerContent);
-  }
-  if (statsContent) {
-    mainContent.appendChild(statsContent);
   }
   mainScreen.appendChild(mainContent);
 };

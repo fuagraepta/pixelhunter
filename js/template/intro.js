@@ -1,4 +1,5 @@
-import {getElementFromTemplate} from '../js/util.js';
+import {getElementFromTemplate, changeScreen} from '../util.js';
+import greetingScreen from '../template/greeting.js';
 
 const introTemplete = `<section id="intro" class="intro">
   <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
@@ -8,6 +9,15 @@ const introTemplete = `<section id="intro" class="intro">
   </button>
 </section>`;
 
-const introScreen = getElementFromTemplate(introTemplete);
+const introScreen = () => {
+  const intro = getElementFromTemplate(introTemplete);
+
+  // By pressing the button changes main screen on the greetino screen
+  const introAsteriskButton = document.querySelector(`.intro__asterisk`);
+
+  introAsteriskButton.addEventListener(`click`, greetingScreen);
+
+  return intro;
+};
 
 export default introScreen;

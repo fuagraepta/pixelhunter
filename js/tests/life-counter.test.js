@@ -1,6 +1,6 @@
 import {assert} from 'chai';
 import countingLives from '../life-counter.js';
-import INITIAL_GAME from '../data.js';
+import {INITIAL_GAME} from '../data/data.js';
 
 describe(`Counting the player life`, () => {
   it(`should return -1 if there is no lifes left`, () => {
