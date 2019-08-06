@@ -1,4 +1,3 @@
-
 const getElementFromTemplate = (template) => {
   const wrapper = document.createElement(`div`);
   wrapper.innerHTML = template;
@@ -6,7 +5,6 @@ const getElementFromTemplate = (template) => {
 };
 
 const mainScreen = document.querySelector(`#main`);
-// const mainHeader = document.querySelector(`header`);
 
 const changeScreen = (mainContent, headerContent) => {
   mainScreen.innerHTML = ``;
@@ -16,4 +14,8 @@ const changeScreen = (mainContent, headerContent) => {
   mainScreen.appendChild(mainContent);
 };
 
-export {getElementFromTemplate, changeScreen};
+const checkGameState = (score, maxAnswer = 10, wrongAnswers = 3) => {
+  return (score.length === maxAnswer || score.answers.filter((value) => value.result === false).length === wrongAnswers) ? true : false;
+};
+
+export {getElementFromTemplate, changeScreen, checkGameState};

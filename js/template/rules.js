@@ -1,9 +1,10 @@
 import {getElementFromTemplate, changeScreen} from '../util.js';
-import gameOneScreen from '../template/game-1.js';
-import header from '../template/header.js';
-import {levels} from '../data/data.js';
+import {levels, INITIAL_GAME} from '../data/data.js';
+import getFirstGameScreen from '../template/game-1.js';
+import getHeader from '../template/header.js';
 
-const rulesTemplate = () => `<section class="rules">
+const rulesTemplate = () => `
+<section class="rules">
   <h2 class="rules__title">Правила</h2>
   <ul class="rules__description">
     <li>Угадай 10 раз для каждого изображения фото
@@ -20,7 +21,7 @@ const rulesTemplate = () => `<section class="rules">
   </form>
 </section>`;
 
-const rulesScreen = () => {
+const getRulesScreen = () => {
 
   const rules = getElementFromTemplate(rulesTemplate);
 
@@ -30,16 +31,16 @@ const rulesScreen = () => {
 
   const onRulesInputChange = (evt) => {
     evt.preventDefault();
-    rulesButton.disabled = (rulesInput.value) ? false : true;
+    rulesButton.disabled = (rulesInput.value.trim()) ? false : true;
   };
 
   // Switch the rules screen to the game-1 screen by pressing "GO"
   rulesInput.addEventListener(`input`, onRulesInputChange);
   rulesButton.addEventListener(`click`, () => {
-    gameOneScreen(levels);
+    changeScreen(getFirstGameScreen(levels[INITIAL_GAME.level]), getHeader(INITIAL_GAME));
   });
 
-  changeScreen(rules, header());
+  return rules;
 };
 
-export default rulesScreen;
+export default getRulesScreen;

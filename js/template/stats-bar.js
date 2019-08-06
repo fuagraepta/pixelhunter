@@ -7,7 +7,6 @@ const statsTemplate = (data) => {
 </ul>`;
 };
 
-
 const progressBar = (state) => {
   const bar = statsTemplate(state);
   return bar;

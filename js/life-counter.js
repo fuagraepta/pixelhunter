@@ -6,9 +6,7 @@ const countingLives = (game, liveNumber, answerType) => {
     return -1;
   }
   let lives = (answerType) ? liveNumber : --liveNumber;
-  const newGame = Object.assign({}, game, {
-    lives
-  });
+  const newGame = Object.assign({}, game, {lives});
   return newGame;
 };
 

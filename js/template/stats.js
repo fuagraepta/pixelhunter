@@ -1,4 +1,4 @@
-import {getElementFromTemplate, changeScreen} from '../util.js';
+import {getElementFromTemplate} from '../util.js';
 import progressBar from '../template/stats-bar.js';
 import countPoints from '../count-score.js';
 import {GAME_SETTING} from '../data/data.js';
@@ -57,9 +57,9 @@ const statScreenTemplate = (data) => `
   </table>
 </section>`;
 
-const statsScreen = (state) => {
+const getStatScreen = (state) => {
   const stats = getElementFromTemplate(statScreenTemplate(state));
-  changeScreen(stats);
+  return stats;
 };
 
-export default statsScreen;
+export default getStatScreen;

@@ -1,3 +1,3 @@
-import introScreen from '../js/template/intro.js';
+import getIntroScreen from '../js/template/intro.js';
 
-introScreen();
+getIntroScreen();

@@ -1,8 +1,7 @@
 const INITIAL_GAME = Object.freeze({
-  questionNumber: 0,
   level: 0,
   lives: 3,
-  time: 0,
+  time: 30,
   answers: [
     {result: true,
       type: `correct`,
@@ -14,13 +13,13 @@ const INITIAL_GAME = Object.freeze({
       time: 15
     },
     {
-      result: true,
-      type: `fast`,
+      result: false,
+      type: `wrong`,
       time: 9
     },
     {
       result: true,
-      type: `slow`,
+      type: `wrong`,
       time: 21
     },
   ],
@@ -163,11 +162,15 @@ const levels = [
   }
 ];
 
+const answers = [];
+
 const GAME_SETTING = {
   POINT_PER_ANSWER: 100,
   BONUS_POINT: 50,
+  MAX_LEVEL: 10,
   MIN_TIME: 10,
   MAX_TIME: 20,
+  INDEX_STEP: 1,
   FAIL: -1,
 };
 

@@ -1,5 +1,5 @@
-import {getElementFromTemplate} from '../util.js';
-import greetingScreen from '../template/greeting.js';
+import {getElementFromTemplate, changeScreen} from '../util.js';
+import getGreetingScreen from '../template/greeting.js';
 
 const headerTemplate = (data) => `<header class="header">
   <button class="back">
@@ -21,15 +21,17 @@ const stateTemplate = (data) => `
   ${(data) ? new Array(data.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`).join(``) : ``}
 </div>`;
 
-const header = (state) => {
-  const hederContent = getElementFromTemplate(headerTemplate(state));
+const getHeader = (state) => {
+  const header = getElementFromTemplate(headerTemplate(state));
 
   // Switch the rules screen to the greeting screen by pressing the arrow-button
-  const backButton = hederContent.querySelector(`.back`);
+  const backButton = header.querySelector(`.back`);
 
-  backButton.addEventListener(`click`, greetingScreen);
-  return hederContent;
+  backButton.addEventListener(`click`, () => {
+    changeScreen(getGreetingScreen());
+  });
+  return header;
 };
 
 
-export default header;
+export default getHeader;
