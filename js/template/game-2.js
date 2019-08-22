@@ -1,12 +1,8 @@
-import {getElementFromTemplate, changeScreen, checkGameState} from '../util.js';
-import {INITIAL_GAME, levels} from '../data/data.js';
-import getThirdGameScreen from '../template/game-3.js';
-import getStatScreen from '../template/stats.js';
-import getHeader from '../template/header.js';
+import {getElementFromTemplate, renderScreen, addAnswer} from '../util.js';
 import progressBar from '../template/stats-bar.js';
-import changeLevel from '../change-level.js';
+import getCurrentGameScreen from '../current-screen.js';
 
-const gameTwoTemplate = (data) =>
+const gameTwoTemplate = (data, progress) =>
   `<section class="game">
   <p class="game__task">${data.question}</p>
   <form class="game__content  game__content--wide">
@@ -22,24 +18,21 @@ const gameTwoTemplate = (data) =>
       </label>
     </div>
   </form>
-  ${progressBar(INITIAL_GAME)}
+  ${progressBar(progress)}
 </section>`;
 
-const getSecondGameScreen = (state) => {
-  const gameTwo = getElementFromTemplate(gameTwoTemplate(state));
+// Create second game screen
+const getSecondGameScreen = (state, progressState) => {
+  const gameTwo = getElementFromTemplate(gameTwoTemplate(state, progressState));
 
-  // Switch the game-2 screen to the game-3 screen when you select any of the answers
-  const gameAnswers = gameTwo.querySelectorAll(`.game__answer`);
+  // Switch the second game screen to the next game screen when you select any of the answers
+  const inputs = gameTwo.querySelectorAll(`input`);
 
-  const gameAnswersClickHandler = () => {
-    const levelNumber = changeLevel(INITIAL_GAME, levels.indexOf(state)).level;
-    const nextLevel = (checkGameState(INITIAL_GAME)) ? [getStatScreen(INITIAL_GAME), getHeader()] : [getThirdGameScreen(levels[levelNumber]), getHeader(INITIAL_GAME)];
-    changeScreen(...nextLevel);
-  };
-
-
-  for (const answer of gameAnswers) {
-    answer.addEventListener(`click`, gameAnswersClickHandler);
+  for (const input of inputs) {
+    input.addEventListener(`click`, () => {
+      addAnswer(progressState, input.value === state.answer.type);
+      renderScreen(...getCurrentGameScreen(state, progressState));
+    });
   }
 
   return gameTwo;

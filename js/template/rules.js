@@ -1,7 +1,6 @@
-import {getElementFromTemplate, changeScreen} from '../util.js';
-import {levels, INITIAL_GAME} from '../data/data.js';
-import getFirstGameScreen from '../template/game-1.js';
-import getHeader from '../template/header.js';
+import {getElementFromTemplate, renderScreen} from '../util.js';
+import {levels, INITIAL_GAME, answers} from '../data/data.js';
+import getCurrentGameScreen from '../current-screen.js';
 
 const rulesTemplate = () => `
 <section class="rules">
@@ -21,6 +20,7 @@ const rulesTemplate = () => `
   </form>
 </section>`;
 
+// Create rules screen
 const getRulesScreen = () => {
 
   const rules = getElementFromTemplate(rulesTemplate);
@@ -34,10 +34,10 @@ const getRulesScreen = () => {
     rulesButton.disabled = (rulesInput.value.trim()) ? false : true;
   };
 
-  // Switch the rules screen to the game-1 screen by pressing "GO"
+  // Switch the rules screen to the first game screen by pressing "GO"
   rulesInput.addEventListener(`input`, onRulesInputChange);
   rulesButton.addEventListener(`click`, () => {
-    changeScreen(getFirstGameScreen(levels[INITIAL_GAME.level]), getHeader(INITIAL_GAME));
+    renderScreen(...getCurrentGameScreen(levels[INITIAL_GAME.level], answers));
   });
 
   return rules;

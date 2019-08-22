@@ -1,4 +1,4 @@
-import {getElementFromTemplate, changeScreen} from '../util.js';
+import {getElementFromTemplate, renderScreen} from '../util.js';
 import getRulesScreen from '../template/rules.js';
 import getHeader from '../template/header.js';
 
@@ -26,6 +26,7 @@ const greetingTemplate = `<section class="greeting central--blur">
   </button>
 </section>`;
 
+// Create greeting screen
 const getGreetingScreen = () => {
   const greeting = getElementFromTemplate(greetingTemplate);
 
@@ -33,7 +34,7 @@ const getGreetingScreen = () => {
   const greetingContinueButton = greeting.querySelector(`.greeting__continue`);
 
   greetingContinueButton.addEventListener(`click`, () => {
-    changeScreen(getRulesScreen(), getHeader());
+    renderScreen(getRulesScreen(), getHeader());
   });
 
   return greeting;

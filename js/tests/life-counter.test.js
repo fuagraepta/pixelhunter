@@ -7,13 +7,17 @@ describe(`Counting the player life`, () => {
     assert.equal(countingLives(INITIAL_GAME, 0, false), -1);
   });
   it(`should return all remaining lifes if the answer is correct`, () => {
-    const answer = true;
+    const answer = [{
+      result: true
+    }];
     assert.equal(countingLives(INITIAL_GAME, 3, answer).lives, 3);
     assert.equal(countingLives(INITIAL_GAME, 2, answer).lives, 2);
     assert.equal(countingLives(INITIAL_GAME, 1, answer).lives, 1);
   });
   it(`should return lifes - 1 if the answer is't correct`, () => {
-    const answer = false;
+    const answer = [{
+      result: false
+    }];
     assert.equal(countingLives(INITIAL_GAME, 3, answer).lives, 2);
     assert.equal(countingLives(INITIAL_GAME, 2, answer).lives, 1);
     assert.equal(countingLives(INITIAL_GAME, 1, answer).lives, 0);

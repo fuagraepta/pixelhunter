@@ -1,12 +1,6 @@
-const getElementFromTemplate = (template) => {
-  const wrapper = document.createElement(`div`);
-  wrapper.innerHTML = template;
-  return wrapper.children.length > 1 ? wrapper : wrapper.children[0];
-};
-
+// Show created screen on main screen
 const mainScreen = document.querySelector(`#main`);
-
-const changeScreen = (mainContent, headerContent) => {
+const renderScreen = (mainContent, headerContent) => {
   mainScreen.innerHTML = ``;
   if (headerContent) {
     mainScreen.appendChild(headerContent);
@@ -14,8 +8,25 @@ const changeScreen = (mainContent, headerContent) => {
   mainScreen.appendChild(mainContent);
 };
 
-const checkGameState = (score, maxAnswer = 10, wrongAnswers = 3) => {
-  return (score.length === maxAnswer || score.answers.filter((value) => value.result === false).length === wrongAnswers) ? true : false;
+// Create DOM element from template
+const getElementFromTemplate = (template) => {
+  const wrapper = document.createElement(`div`);
+  wrapper.innerHTML = template;
+  return wrapper.children.length > 1 ? wrapper : wrapper.children[0];
 };
 
-export {getElementFromTemplate, changeScreen, checkGameState};
+
+// Create and add answer in array data
+class Answer {
+  constructor(result, time) {
+    this.result = result;
+    this.type = (this.result) ? `correct` : `wrong`;
+    this.time = time;
+  }
+}
+
+const addAnswer = (answersData, condition) => {
+  answersData.push((condition) ? new Answer(true, 15) : new Answer(false, 15));
+};
+
+export {renderScreen, getElementFromTemplate, Answer, addAnswer};
