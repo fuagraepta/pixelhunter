@@ -10,11 +10,15 @@ const levels = [
     question: `Угадайте для каждого изображения фото или рисунок?`,
     answers: [
       {
-        img: ``,
+        img: `https://k42.kn3.net/CF42609C8.jpg`,
+        width: 600,
+        height: 831,
         type: `paint`
       },
       {
-        img: ``,
+        img: `https://k42.kn3.net/D2F0370D6.jpg`,
+        width: 468,
+        height: 354,
         type: `paint`
       }
     ]
@@ -23,7 +27,9 @@ const levels = [
     type: `game-2`,
     question: `Угадай, фото или рисунок?`,
     answer: {
-      img: ``,
+      img: `https://k32.kn3.net/5C7060EC5.jpg`,
+      width: 1200,
+      height: 900,
       type: `paint`
     }
   },
@@ -32,15 +38,21 @@ const levels = [
     question: `Найдите рисунок среди изображений`,
     answers: [
       {
-        img: ``,
+        img: `https://k32.kn3.net/5C7060EC5.jpg`,
+        width: 1200,
+        height: 900,
         type: `paint`
       },
       {
-        img: ``,
+        img: `http://i.imgur.com/1KegWPz.jpg`,
+        width: 1080,
+        height: 720,
         type: `photo`
       },
       {
-        img: ``,
+        img: `https://i.imgur.com/DiHM5Zb.jpg`,
+        width: 1264,
+        height: 1864,
         type: `photo`
       }
     ]
@@ -50,11 +62,15 @@ const levels = [
     question: `Угадайте для каждого изображения фото или рисунок?`,
     answers: [
       {
-        img: ``,
+        img: `https://k42.kn3.net/CF42609C8.jpg`,
+        width: 600,
+        height: 831,
         type: `paint`
       },
       {
-        img: ``,
+        img: `http://i.imgur.com/DKR1HtB.jpg`,
+        width: 1120,
+        height: 2965,
         type: `photo`
       }
     ]
@@ -63,7 +79,9 @@ const levels = [
     type: `game-2`,
     question: `Угадай, фото или рисунок?`,
     answer: {
-      img: ``,
+      img: `http://i.imgur.com/1KegWPz.jpg`,
+      width: 1080,
+      height: 720,
       type: `photo`
     }
   },
@@ -72,15 +90,21 @@ const levels = [
     question: `Найдите рисунок среди изображений`,
     answers: [
       {
-        img: ``,
+        img: `https://i.imgur.com/DiHM5Zb.jpg`,
+        width: 1264,
+        height: 1864,
         type: `photo`
       },
       {
-        img: ``,
+        img: `https://k42.kn3.net/D2F0370D6.jpg`,
+        width: 468,
+        height: 354,
         type: `paint`
       },
       {
-        img: ``,
+        img: `http://i.imgur.com/DKR1HtB.jpg`,
+        width: 1120,
+        height: 2965,
         type: `photo`
       }
     ]
@@ -90,11 +114,15 @@ const levels = [
     question: `Угадайте для каждого изображения фото или рисунок?`,
     answers: [
       {
-        img: ``,
+        img: `http://i.imgur.com/1KegWPz.jpg`,
+        width: 1080,
+        height: 720,
         type: `photo`
       },
       {
-        img: ``,
+        img: `https://k32.kn3.net/5C7060EC5.jpg`,
+        width: 1200,
+        height: 900,
         type: `paint`
       }
     ]
@@ -103,7 +131,9 @@ const levels = [
     type: `game-2`,
     question: `Угадай, фото или рисунок?`,
     answer: {
-      img: ``,
+      img: `https://i.imgur.com/DiHM5Zb.jpg`,
+      width: 1264,
+      height: 1864,
       type: `photo`
     }
   },
@@ -112,15 +142,21 @@ const levels = [
     question: `Найдите рисунок среди изображений`,
     answers: [
       {
-        img: ``,
+        img: `http://i.imgur.com/DKR1HtB.jpg`,
+        width: 1120,
+        height: 2965,
         type: `photo`
       },
       {
-        img: ``,
+        img: `http://i.imgur.com/1KegWPz.jpg`,
+        width: 1080,
+        height: 720,
         type: `photo`
       },
       {
-        img: ``,
+        img: `https://k42.kn3.net/D2F0370D6.jpg`,
+        width: 468,
+        height: 354,
         type: `paint`
       }
     ]
@@ -130,11 +166,15 @@ const levels = [
     question: `Угадайте для каждого изображения фото или рисунок?`,
     answers: [
       {
-        img: ``,
+        img: `https://i.imgur.com/DiHM5Zb.jpg`,
+        width: 1264,
+        height: 1864,
         type: `photo`
       },
       {
-        img: ``,
+        img: `http://i.imgur.com/DKR1HtB.jpg`,
+        width: 1120,
+        height: 2965,
         type: `photo`
       }
     ]

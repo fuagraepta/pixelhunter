@@ -1,12 +1,18 @@
 import {getElementFromTemplate, renderScreen, addAnswer} from '../util.js';
 import progressBar from '../template/stats-bar.js';
 import getCurrentGameScreen from '../current-screen.js';
+import resize from '../resize.js';
+
+const gameOneImageFrame = {
+  width: 468,
+  height: 458
+};
 
 const questionTemplate = (data, index) => {
   const indexStep = 1;
 
   return `<div class="game__option">
-    <img src=${data.img} alt="Option ${index + indexStep}" width="468" height="458">
+    <img src=${data.img} alt="Option ${index + indexStep}" width=${resize(gameOneImageFrame, data).width} height=${resize(gameOneImageFrame, data).height}>
     <label class="game__answer game__answer--photo">
       <input class="visually-hidden" name="question${index + indexStep}" type="radio" value="photo">
       <span>Фото</span>

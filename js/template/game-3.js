@@ -1,9 +1,15 @@
 import {getElementFromTemplate, renderScreen, addAnswer} from '../util.js';
 import progressBar from '../template/stats-bar';
 import getCurrentGameScreen from '../current-screen.js';
+import resize from '../resize.js';
+
+const gameThreeImageFrame = {
+  width: 304,
+  height: 455
+};
 
 const questionTemplate = (data) => `<div class="game__option">
-  <img src=${data.img} alt="Option 1" width="304" height="455">
+  <img src=${data.img} alt="Option 1" width=${resize(gameThreeImageFrame, data).width} height=${resize(gameThreeImageFrame, data).height}>
 </div>`;
 
 const gameThreeTemplate = (data, progress) => `<section class="game">
