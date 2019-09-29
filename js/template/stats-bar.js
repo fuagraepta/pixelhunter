@@ -1,16 +1,24 @@
+import AbstractView from '../abstract-view.js';
 
-const resultTemplate = (data) => `<li class="stats__result stats__result--${data.type}"></li>`;
+export default class StatsBarView extends AbstractView {
+  constructor(state) {
+    super();
+    this.state = state;
+  }
 
-const statsTemplate = (data) => {
-  return `<ul class="stats">
-  ${[...data.map(resultTemplate), ...new Array(10 - data.length).fill(`<li class="stats__result stats__result--unknown"></li>`)].join(``)}
-</ul>`;
-};
+  get template() {
+    const resultTemplate = (state) => `<li class="stats__result stats__result--${state.type}"></li>`;
 
-// Create progress bar
-const getProgressBar = (state) => {
-  const progressBar = statsTemplate(state);
-  return progressBar;
-};
+    return `<ul class="stats">
+    ${[...this.state.map(resultTemplate), ...new Array(10 - this.state.length).fill(`<li class="stats__result stats__result--unknown"></li>`)].join(``)}
+  </ul>`;
+  }
 
-export default getProgressBar;
+  get element() {
+    if (this._element) {
+      return this._element;
+    }
+    this._element = StatsBarView.render(this.template);
+    return this._element;
+  }
+}

@@ -1,43 +1,54 @@
-import {getElementFromTemplate, renderScreen} from '../util.js';
-import getRulesScreen from '../template/rules.js';
-import getHeader from '../template/header.js';
+import AbstractView from '../abstract-view.js';
 
-const greetingTemplate = `<section class="greeting central--blur">
-  <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
-  <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
-  <div class="greeting__challenge">
-    <h3 class="greeting__challenge-title">Лучшие художники-фотореалисты бросают тебе вызов!</h3>
-    <p class="greeting__challenge-text">Правила игры просты:</p>
-    <ul class="greeting__challenge-list">
-      <li>Нужно отличить рисунок от фотографии и сделать выбор.</li>
-      <li>Задача кажется тривиальной, но не думай, что все так просто.</li>
-      <li>Фотореализм обманчив и коварен.</li>
-      <li>Помни, главное — смотреть очень внимательно.</li>
-    </ul>
-  </div>
-  <button class="greeting__continue" type="button">
-    <span class="visually-hidden">Продолжить</span>
-    <svg class="icon" width="64" height="64" viewBox="0 0 64 64" fill="#000000">
-      <use xlink:href="img/sprite.svg#arrow-right"></use>
-    </svg>
-  </button>
-  <button class="greeting__top top" type="button">
-    <img src="img/icon-top.svg" width="71" height="79" alt="Топ игроков">
-  </button>
-</section>`;
+export default class GreetingView extends AbstractView {
+  constructor() {
+    super();
+  }
 
-// Create greeting screen
-const getGreetingScreen = () => {
-  const greeting = getElementFromTemplate(greetingTemplate);
+  get template() {
+    return `<section class="greeting central--blur">
+      <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
+      <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
+      <div class="greeting__challenge">
+        <h3 class="greeting__challenge-title">Лучшие художники-фотореалисты бросают тебе вызов!</h3>
+        <p class="greeting__challenge-text">Правила игры просты:</p>
+        <ul class="greeting__challenge-list">
+          <li>Нужно отличить рисунок от фотографии и сделать выбор.</li>
+          <li>Задача кажется тривиальной, но не думай, что все так просто.</li>
+          <li>Фотореализм обманчив и коварен.</li>
+          <li>Помни, главное — смотреть очень внимательно.</li>
+        </ul>
+      </div>
+      <button class="greeting__continue" type="button">
+        <span class="visually-hidden">Продолжить</span>
+        <svg class="icon" width="64" height="64" viewBox="0 0 64 64" fill="#000000">
+          <use xlink:href="img/sprite.svg#arrow-right"></use>
+        </svg>
+      </button>
+      <button class="greeting__top top" type="button">
+        <img src="img/icon-top.svg" width="71" height="79" alt="Топ игроков">
+      </button>
+    </section>`;
+  }
 
-  // Switch the greeting screen to the rules screen by pressing the arrow-button
-  const greetingContinueButton = greeting.querySelector(`.greeting__continue`);
+  get element() {
+    if (this._element) {
+      return this._element;
+    }
+    this._element = GreetingView.render(this.template);
+    this.bind();
+    return this._element;
+  }
 
-  greetingContinueButton.addEventListener(`click`, () => {
-    renderScreen(getRulesScreen(), getHeader());
-  });
+  onContinueButtonClick() {}
 
-  return greeting;
-};
+  bind() {
+    // Do someting when you press the arrow-button
+    const continueButton = this.element.querySelector(`.greeting__continue`);
 
-export default getGreetingScreen;
+    continueButton.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      this.onContinueButtonClick();
+    });
+  }
+}

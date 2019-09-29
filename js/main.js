@@ -1,4 +1,3 @@
-import {renderScreen} from '../js/util.js';
-import getIntroScreen from '../js/template/intro.js';
+import getCurrentScreen from '../js/current-screen.js';
 
-renderScreen(getIntroScreen());
+getCurrentScreen();

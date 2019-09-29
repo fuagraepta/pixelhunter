@@ -29,7 +29,7 @@ const levels = [
     answer: {
       img: `https://k32.kn3.net/5C7060EC5.jpg`,
       width: 1200,
-      height: 900,
+      height: 800,
       type: `paint`
     }
   },

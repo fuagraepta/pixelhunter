@@ -1,9 +1,14 @@
 // Show created screen on main screen
 const mainScreen = document.querySelector(`#main`);
-const renderScreen = (mainContent, headerContent) => {
+const renderScreen = (mainContent, headerContent, statusBar) => {
   mainScreen.innerHTML = ``;
+
   if (headerContent) {
     mainScreen.appendChild(headerContent);
+  }
+
+  if (statusBar) {
+    mainContent.appendChild(statusBar);
   }
   mainScreen.appendChild(mainContent);
 };
@@ -14,7 +19,6 @@ const getElementFromTemplate = (template) => {
   wrapper.innerHTML = template;
   return wrapper.children.length > 1 ? wrapper : wrapper.children[0];
 };
-
 
 // Create and add answer in array data
 class Answer {
