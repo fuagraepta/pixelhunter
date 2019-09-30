@@ -1,35 +1,49 @@
-import {getElementFromTemplate, renderScreen, addAnswer} from '../util.js';
-import progressBar from '../template/stats-bar';
-import getCurrentGameScreen from '../current-screen.js';
+import resize from '../resize.js';
+import AbstractView from '../abstract-view.js';
 
-const questionTemplate = (data) => `<div class="game__option">
-  <img src=${data.img} alt="Option 1" width="304" height="455">
-</div>`;
-
-const gameThreeTemplate = (data, progress) => `<section class="game">
-  <p class="game__task">Найдите рисунок среди изображений</p>
-  <form class="game__content  game__content--triple">
-    ${data.answers.map(questionTemplate).join(``)}
-  </form>
-  ${progressBar(progress)}
-</section>`;
-
-// Create third game screen
-const getThirdGameScreen = (state, progressState) => {
-  const gameThree = getElementFromTemplate(gameThreeTemplate(state, progressState));
-
-  // Switch the third game screen to the next game screen when you select any of the answers
-  const gameOptions = gameThree.querySelectorAll(`.game__option`);
-
-  for (const option of gameOptions) {
-    option.addEventListener(`click`, () => {
-      const answerIndex = [...gameOptions].indexOf(option);
-      addAnswer(progressState, state.answers[answerIndex].type === `paint`);
-      renderScreen(...getCurrentGameScreen(state, progressState));
-    });
+export default class GameThree extends AbstractView {
+  constructor(data) {
+    super();
+    this.data = data;
   }
 
-  return gameThree;
-};
+  get template() {
+    const gameThreeImageFrame = {
+      width: 304,
+      height: 455
+    };
 
-export default getThirdGameScreen;
+    const questionTemplate = (data) => `<div class="game__option">
+      <img src=${data.img} alt="Option 1" width=${resize(gameThreeImageFrame, data).width} height=${resize(gameThreeImageFrame, data).height}>
+    </div>`;
+
+    return `<section class="game">
+      <p class="game__task">Найдите рисунок среди изображений</p>
+      <form class="game__content  game__content--triple">
+        ${this.data.answers.map(questionTemplate).join(``)}
+      </form>
+    </section>`;
+  }
+
+  get element() {
+    if (this._element) {
+      return this._element;
+    }
+    this._element = GameThree.render(this.template);
+    this.bind();
+    return this._element;
+  }
+
+  onAnswer() {}
+
+  bind() {
+    // Do something when user has selected any of the answers
+    const gameOptions = this._element.querySelectorAll(`.game__option`);
+
+    for (const option of gameOptions) {
+      option.addEventListener(`click`, (evt) => {
+        this.onAnswer(evt);
+      });
+    }
+  }
+}

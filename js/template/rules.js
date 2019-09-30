@@ -1,46 +1,55 @@
-import {getElementFromTemplate, renderScreen} from '../util.js';
-import {levels, INITIAL_GAME, answers} from '../data/data.js';
-import getCurrentGameScreen from '../current-screen.js';
+import AbstractView from '../abstract-view.js';
 
-const rulesTemplate = () => `
-<section class="rules">
-  <h2 class="rules__title">Правила</h2>
-  <ul class="rules__description">
-    <li>Угадай 10 раз для каждого изображения фото
-      <img class="rules__icon" src="img/icon-photo.png" width="32" height="31" alt="Фото"> или рисунок
-      <img class="rules__icon" src="img/icon-paint.png" width="32" height="31" alt="Рисунок"></li>
-    <li>Фотографиями или рисунками могут быть оба изображения.</li>
-    <li>На каждую попытку отводится 30 секунд.</li>
-    <li>{Ошибиться можно не более 3 раз.}</li>
-  </ul>
-  <p class="rules__ready">Готовы?</p>
-  <form class="rules__form">
-    <input class="rules__input" type="text" placeholder="Ваше Имя">
-    <button class="rules__button  continue" type="submit" disabled>Go!</button>
-  </form>
-</section>`;
+export default class RulesView extends AbstractView {
+  constructor() {
+    super();
+  }
 
-// Create rules screen
-const getRulesScreen = () => {
+  get template() {
+    return `<section class="rules">
+      <h2 class="rules__title">Правила</h2>
+      <ul class="rules__description">
+        <li>Угадай 10 раз для каждого изображения фото
+          <img class="rules__icon" src="img/icon-photo.png" width="32" height="31" alt="Фото"> или рисунок
+          <img class="rules__icon" src="img/icon-paint.png" width="32" height="31" alt="Рисунок"></li>
+        <li>Фотографиями или рисунками могут быть оба изображения.</li>
+        <li>На каждую попытку отводится 30 секунд.</li>
+        <li>{Ошибиться можно не более 3 раз.}</li>
+      </ul>
+      <p class="rules__ready">Готовы?</p>
+      <form class="rules__form">
+        <input class="rules__input" type="text" placeholder="Ваше Имя">
+        <button class="rules__button  continue" type="submit" disabled>Go!</button>
+      </form>
+    </section>`;
+  }
 
-  const rules = getElementFromTemplate(rulesTemplate);
+  get element() {
+    if (this._element) {
+      return this._element;
+    }
+    this._element = RulesView.render(this.template);
+    this.bind();
+    return this._element;
+  }
 
-  // When entering data the button "GO" is unlock
-  const rulesInput = rules.querySelector(`.rules__input`);
-  const rulesButton = rules.querySelector(`.rules__button`);
+  onGoButtonClick() {}
 
-  const onRulesInputChange = (evt) => {
-    evt.preventDefault();
-    rulesButton.disabled = (rulesInput.value.trim()) ? false : true;
-  };
+  bind() {
+    // When entering data the button "GO" is unlock
+    const rulesInput = this.element.querySelector(`.rules__input`);
 
-  // Switch the rules screen to the first game screen by pressing "GO"
-  rulesInput.addEventListener(`input`, onRulesInputChange);
-  rulesButton.addEventListener(`click`, () => {
-    renderScreen(...getCurrentGameScreen(levels[INITIAL_GAME.level], answers));
-  });
+    rulesInput.addEventListener(`input`, (evt) => {
+      evt.preventDefault();
+      goButton.disabled = (rulesInput.value.trim()) ? false : true;
+    });
 
-  return rules;
-};
+    // Do something when you press "GO"
+    const goButton = this.element.querySelector(`.rules__button`);
 
-export default getRulesScreen;
+    goButton.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      this.onGoButtonClick();
+    });
+  }
+}
