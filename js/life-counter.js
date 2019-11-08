@@ -1,14 +1,14 @@
-const countingLives = (game, liveNumber, answers) => {
-  if (typeof liveNumber !== `number`) {
+const die = (game) => {
+  if (typeof game.lives !== `number`) {
     throw new Error(`Lives should be of type number`);
   }
-  if (liveNumber === 0) {
+  if (game.lives === 0) {
     return -1;
   }
-  const wrondAnswer = answers.filter((answer) => answer.result === false);
-  let lives = (wrondAnswer) ? liveNumber - wrondAnswer.length : liveNumber;
+  let lives = game.lives;
+  --lives;
   const newGame = Object.assign({}, game, {lives});
   return newGame;
 };
 
-export default countingLives;
+export default die;

@@ -11,10 +11,10 @@ const countPoints = (answers, lives) => {
   const [minTime, maxTime] = [10, 20];
   let score = 0;
   for (const answer of correctAnswers) {
-    if (answer.time < minTime) {
+    if (answer.time > maxTime) {
       score += bonusPoint;
     }
-    score += (answer.time > maxTime) ? bonusPoint : pointPerAnswer;
+    score += (answer.time < minTime) ? bonusPoint : pointPerAnswer;
   }
   return score + lives * bonusPoint;
 };

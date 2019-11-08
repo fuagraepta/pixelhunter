@@ -56,43 +56,43 @@ describe(`Counting of points`, () => {
     const playerAnswers = [
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       },
       {
         result: true,
-        time: 21
+        time: 9
       }
     ];
     assert.equal(countPoints(playerAnswers, 3), 650);
@@ -103,43 +103,43 @@ describe(`Counting of points`, () => {
     const playerAnswers = [
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       },
       {
         result: true,
-        time: 9
+        time: 23
       }
     ];
     assert.equal(countPoints(playerAnswers, 3), 1650);

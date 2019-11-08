@@ -1,3 +1,3 @@
-import getCurrentScreen from '../js/current-screen.js';
+import Router from './router.js';
 
-getCurrentScreen();
+Router.showIntro();
