@@ -1,7 +1,8 @@
 const INITIAL_GAME = Object.freeze({
-  level: -1,
+  level: 0,
   lives: 3,
   time: 30,
+  answers: Object.freeze([])
 });
 
 const levels = [
@@ -181,15 +182,31 @@ const levels = [
   }
 ];
 
-const answers = [];
-
 const GAME_SETTING = {
   pointPerAnswer: 100,
   bonusPoint: 50,
   maxLevel: 10,
+  second: 1000,
+  endTime: 0,
   minTime: 10,
   maxTime: 20,
+  dead: 0,
   fail: -1,
 };
 
-export {INITIAL_GAME, levels, GAME_SETTING, answers};
+const GAME_ANSWERS_FRAME = {
+  'game-1': {
+    width: 468,
+    height: 458
+  },
+  'game-2': {
+    width: 705,
+    height: 455
+  },
+  'game-3': {
+    width: 304,
+    height: 455
+  }
+};
+
+export {INITIAL_GAME, GAME_ANSWERS_FRAME, GAME_SETTING, levels};

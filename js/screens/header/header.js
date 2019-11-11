@@ -1,18 +1,20 @@
-import AbstractView from '../abstract-view.js';
+import AbstractView from '../../abstract-view.js';
+import {INITIAL_GAME} from '../../data/data.js';
 
 export default class HeaderView extends AbstractView {
-  constructor(state, progress) {
+  constructor(state) {
     super();
     this.state = state;
-    this.progress = progress;
   }
 
   get template() {
-    const stateTemplate = (state, progress) => `
+    const stateTemplate = (state) => `
     <div class="game__timer">${(state) ? state.time : ``}</div>
     <div class="game__lives">
-      ${(state) ? (new Array(state.lives - progress.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`).join(``)) : ``}
-      ${(state) ? new Array(progress.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`).join(``) : ``}
+      ${(state) ? (new Array(INITIAL_GAME.lives - state.lives).fill(`<img src="img/heart__empty.svg"
+      class="game__heart" alt=" Missed Life" width="31" height="27">`).join(``)) : ``}
+      ${(state) ? new Array(state.lives).fill(`<img src="img/heart__full.svg"
+      class="game__heart" alt="Life" width="31" height="27">`).join(``) : ``}
     </div>`;
 
     return `<header class="header">
@@ -25,7 +27,7 @@ export default class HeaderView extends AbstractView {
           <use xlink:href="img/sprite.svg#logo-small"></use>
         </svg>
       </button>
-      ${this.state ? stateTemplate(this.state, this.progress) : ``}
+      ${this.state ? stateTemplate(this.state) : ``}
     </header>`;
   }
 

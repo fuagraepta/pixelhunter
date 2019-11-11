@@ -1,4 +1,4 @@
-const changeLevel = (game, levelNumber, maxLevel = 10) => {
+const changeLevel = (game, levelNumber, maxLevel) => {
   if (typeof levelNumber !== `number`) {
     throw new Error(`Level should be of type number`);
   }
