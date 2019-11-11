@@ -16,15 +16,15 @@ export default class GameModel {
   }
 
   get finalScore() {
-    return countPoint(this._state.answers, this._state.lives);
+    return countPoint(this._state.answers, this._state.lives, GAME_SETTING);
   }
 
   hasNextLevel() {
-    return changeLevel(this._state, this._state.level).level === GAME_SETTING.maxLevel;
+    return changeLevel(this._state, this._state.level, GAME_SETTING.maxLevel).level === GAME_SETTING.maxLevel;
   }
 
   nextLevel() {
-    this._state = changeLevel(this._state, this._state.level);
+    this._state = changeLevel(this._state, this._state.level, GAME_SETTING.maxLevel);
   }
 
   restart() {
@@ -33,7 +33,7 @@ export default class GameModel {
   }
 
   looseLife() {
-    this._state = die(this._state);
+    this._state = die(this._state, GAME_SETTING);
   }
 
   isGameOver() {
@@ -41,7 +41,7 @@ export default class GameModel {
   }
 
   tick() {
-    this._state = setTimer(this._state);
+    this._state = setTimer(this._state, GAME_SETTING);
   }
 
   resetTimer() {

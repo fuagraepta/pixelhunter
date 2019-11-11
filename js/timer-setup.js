@@ -1,5 +1,6 @@
-const setTimer = (state) => {
-  const time = (state.time > 0) ? state.time - 1 : 0;
+const setTimer = (state, variables) => {
+  const second = 1;
+  const time = (state.time > variables.endTime) ? state.time - second : variables.endTime;
   const game = Object.assign({}, state, {time});
   return game;
 };

@@ -1,9 +1,9 @@
-const die = (game) => {
+const die = (game, variables) => {
   if (typeof game.lives !== `number`) {
     throw new Error(`Lives should be of type number`);
   }
-  if (game.lives === 0) {
-    return -1;
+  if (game.lives === variables.dead) {
+    return variables.fail;
   }
   let lives = game.lives;
   --lives;

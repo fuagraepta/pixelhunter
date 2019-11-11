@@ -1,22 +1,19 @@
-const countPoints = (answers, lives) => {
-  const correctAnswersLength = 10;
+const countPoints = (answers, lives, variables) => {
   if (!Array.isArray(answers)) {
     throw new Error(`answers should be of type array`);
   }
-  if (answers.length < correctAnswersLength) {
-    return -1;
+  if (answers.length < variables.maxLevel) {
+    return variables.fail;
   }
   const correctAnswers = answers.filter((answer) => answer.result === true);
-  const [bonusPoint, pointPerAnswer] = [50, 100];
-  const [minTime, maxTime] = [10, 20];
   let score = 0;
   for (const answer of correctAnswers) {
-    if (answer.time > maxTime) {
-      score += bonusPoint;
+    if (answer.time > variables.maxTime) {
+      score += variables.bonusPoint;
     }
-    score += (answer.time < minTime) ? bonusPoint : pointPerAnswer;
+    score += (answer.time < variables.minTime) ? variables.bonusPoint : variables.pointPerAnswer;
   }
-  return score + lives * bonusPoint;
+  return score + lives * variables.bonusPoint;
 };
 
 export default countPoints;
