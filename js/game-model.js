@@ -37,7 +37,7 @@ export default class GameModel {
   }
 
   isGameOver() {
-    return this._state.lives <= GAME_SETTING.dead;
+    return this._state.lives === GAME_SETTING.dead;
   }
 
   tick() {

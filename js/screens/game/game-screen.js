@@ -95,9 +95,12 @@ export default class GameScreen {
         break;
       case `game-3`:
         const gameOptions = this.content.element.querySelector(`.game__content`);
+        const paintArray = level.answers.filter((value) => value.type === `paint`);
+        const photoArray = level.answers.filter((value) => value.type === `photo`);
         const answerIndex = [...gameOptions.children].indexOf(evt.target.closest(`.game__option`));
 
-        answerType = level.answers[answerIndex].type === `paint`;
+        answerType = (paintArray.length < photoArray.length) ? level.answers[answerIndex].type === `paint` :
+          level.answers[answerIndex].type === `photo`;
         break;
     }
 

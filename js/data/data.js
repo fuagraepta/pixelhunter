@@ -190,7 +190,7 @@ const GAME_SETTING = {
   endTime: 0,
   minTime: 10,
   maxTime: 20,
-  dead: 0,
+  dead: -1,
   fail: -1,
 };
 

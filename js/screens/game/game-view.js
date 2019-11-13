@@ -1,6 +1,7 @@
 import AbstractView from '../../abstract-view.js';
 import {GAME_ANSWERS_FRAME} from '../../data/data.js';
 import resize from '../../resize.js';
+import DEBUG from '../../settings.js';
 
 export default class GameView extends AbstractView {
   constructor(data) {
@@ -17,11 +18,11 @@ export default class GameView extends AbstractView {
         height=${resize(GAME_ANSWERS_FRAME[this.data.type], data).height}>
         <label class="game__answer game__answer--photo">
           <input class="visually-hidden" name="question${index + indexStep}" type="radio" value="photo">
-          <span>Фото</span>
+          <span ${DEBUG.state && data.type === `photo` ? DEBUG.firstStyleType : ``}>Фото</span>
         </label>
         <label class="game__answer game__answer--paint">
           <input class="visually-hidden" name="question${index + indexStep}" type="radio" value="paint">
-          <span>Рисунок</span>
+          <span ${DEBUG.state && data.type === `paint` ? DEBUG.firstStyleType : ``}>Рисунок</span>
         </label>
       </div>`;
 
@@ -39,18 +40,21 @@ export default class GameView extends AbstractView {
           height=${resize(GAME_ANSWERS_FRAME[this.data.type], this.data.answer).height}>
           <label class="game__answer  game__answer--photo">
             <input class="visually-hidden" name="question1" type="radio" value="photo">
-            <span>Фото</span>
+            <span ${DEBUG.state && this.data.answer.type === `photo` ? DEBUG.firstStyleType : ``}>Фото</span>
           </label>
           <label class="game__answer  game__answer--paint">
             <input class="visually-hidden" name="question1" type="radio" value="paint">
-            <span>Рисунок</span>
+            <span ${DEBUG.state && this.data.answer.type === `paint` ? DEBUG.firstStyleType : ``}>Рисунок</span>
           </label>
         </div>
       </form>`;
     };
 
     const questionThreeTemplate = () => {
-      const questionTempate = (data) => `<div class="game__option">
+      const uniqueElementLength = 1;
+      const questionTempate = (data) => `<div class="game__option" ${DEBUG.state &&
+        this.data.answers.filter((value) => value.type === data.type).length === uniqueElementLength ?
+        DEBUG.secondStyleType : ``}>
         <img src=${data.img} alt="Option 1"
         width=${resize(GAME_ANSWERS_FRAME[this.data.type], data).width}
         height=${resize(GAME_ANSWERS_FRAME[this.data.type], data).height}>

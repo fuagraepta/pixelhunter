@@ -4,6 +4,7 @@ import RulesScreen from './screens/rules/rules-screen.js';
 import GameScreen from './screens/game/game-screen.js';
 import StatsScreen from './screens/stats/stats-screen.js';
 import GameModel from './game-model.js';
+import DEBUG from './settings.js';
 
 // Show created screen on main screen
 const mainScreen = document.querySelector(`#main`);
@@ -33,6 +34,7 @@ export default class Router {
   }
 
   static showGame(playerName) {
+    DEBUG.state = (playerName === `debug`) ? true : false;
     const gameScreen = new GameScreen(new GameModel(playerName));
     renderScreen(gameScreen.root);
     gameScreen.startGame();
