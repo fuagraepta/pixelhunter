@@ -5,7 +5,7 @@ import {INITIAL_GAME, GAME_SETTING} from '../data/data.js';
 describe(`Counting the player life`, () => {
   it(`should return -1 if there is no lifes left`, () => {
     const testGame = {
-      lives: 0
+      lives: -1
     };
     assert.equal(die(testGame, GAME_SETTING), -1);
   });

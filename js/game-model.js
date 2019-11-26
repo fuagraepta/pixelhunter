@@ -1,13 +1,14 @@
 import Answer from './data/answer.js';
-import {INITIAL_GAME, GAME_SETTING, levels} from './data/data.js';
-import changeLevel from './change-level.js';
-import countPoint from './count-score.js';
-import die from './life-counter.js';
-import setTimer from './timer-setup.js';
+import {INITIAL_GAME, GAME_SETTING} from './data/data.js';
+import changeLevel from './tools/change-level.js';
+import countPoint from './tools/count-score.js';
+import die from './tools/life-counter.js';
+import setTimer from './tools/timer-setup.js';
 
 export default class GameModel {
-  constructor(playerName) {
+  constructor(playerName, levels) {
     this.playerName = playerName;
+    this.levels = levels;
     this.restart();
   }
 
@@ -56,6 +57,6 @@ export default class GameModel {
   }
 
   getCurrentLevel() {
-    return levels[this._state.level];
+    return this.levels[this._state.level];
   }
 }

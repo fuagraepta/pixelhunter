@@ -1,7 +1,7 @@
 import AbstractView from '../../abstract-view.js';
 import {GAME_ANSWERS_FRAME} from '../../data/data.js';
-import resize from '../../resize.js';
-import DEBUG from '../../settings.js';
+import resize from '../../tools/resize.js';
+import DEBUG from '../../tools/settings.js';
 
 export default class GameView extends AbstractView {
   constructor(data) {
