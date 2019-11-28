@@ -1,5 +1,5 @@
 import AbstractView from '../../abstract-view.js';
-import {GAME_ANSWERS_FRAME} from '../../data/data.js';
+import {GAME_ANSWERS_FRAME, GAME_SETTING} from '../../data/data.js';
 import resize from '../../tools/resize.js';
 import DEBUG from '../../tools/settings.js';
 
@@ -11,17 +11,18 @@ export default class GameView extends AbstractView {
 
   get template() {
     const questionOneTemplate = () => {
-      const indexStep = 1;
       const questionTemplate = (data, index) => `<div class="game__option">
-        <img src=${data.img} alt="Option ${index + indexStep}"
+        <img src=${data.img} alt="Option ${index + GAME_SETTING.indexStep}"
         width=${resize(GAME_ANSWERS_FRAME[this.data.type], data).width}
         height=${resize(GAME_ANSWERS_FRAME[this.data.type], data).height}>
         <label class="game__answer game__answer--photo">
-          <input class="visually-hidden" name="question${index + indexStep}" type="radio" value="photo">
+          <input class="visually-hidden" name="question${index + GAME_SETTING.indexStep}"
+          type="radio" value="photo">
           <span ${DEBUG.state && data.type === `photo` ? DEBUG.firstStyleType : ``}>Фото</span>
         </label>
         <label class="game__answer game__answer--paint">
-          <input class="visually-hidden" name="question${index + indexStep}" type="radio" value="paint">
+          <input class="visually-hidden" name="question${index + GAME_SETTING.indexStep}"
+          type="radio" value="paint">
           <span ${DEBUG.state && data.type === `paint` ? DEBUG.firstStyleType : ``}>Рисунок</span>
         </label>
       </div>`;

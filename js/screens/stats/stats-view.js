@@ -2,10 +2,9 @@ import AbstractView from '../../abstract-view.js';
 import {GAME_SETTING} from '../../data/data.js';
 
 export default class StatsView extends AbstractView {
-  constructor(data, result) {
+  constructor(data) {
     super();
     this.data = data;
-    this.result = result;
   }
 
   get template() {
@@ -51,26 +50,29 @@ export default class StatsView extends AbstractView {
         ${liveBonusTemplate(data)}
         ${data.answers.some(slowFineFilter) ? slowFineTemplate(data.answers, slowFineFilter) : ``}
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${this.result}</td>
+        <td colspan="5" class="result__total  result__total--final">${data.result}</td>
       </tr>`;
     };
 
     const statsBarTemplate = (data) => `<li class="stats__result stats__result--${data.type}"></li>`;
 
+    const resultTableTemplate = (data, index) => `
+    <table class="result__table">
+      <tr>
+        <td class="result__number">${index + GAME_SETTING.indexStep}.</td>
+        <td colspan="2">
+          <ul class="stats">
+          ${[...data.answers.map(statsBarTemplate), ...new Array(GAME_SETTING.maxLevel -
+            data.answers.length).fill(`<li class="stats__result stats__result--unknown"></li>`)].join(``)}
+          </ul>
+        </td>
+        ${(data.result === GAME_SETTING.fail) ? `<td class="result__total"></td>
+        <td colspan="5" class="result__total  result__total--final">fail</td>` : resultTemplate(data)}
+    </table>`;
+
     return `<section class="result">
       <h2 class="result__title">Победа!</h2>
-      <table class="result__table">
-        <tr>
-          <td class="result__number">1.</td>
-          <td colspan="2">
-            <ul class="stats">
-            ${[...this.data.answers.map(statsBarTemplate), ...new Array(GAME_SETTING.maxLevel -
-              this.data.answers.length).fill(`<li class="stats__result stats__result--unknown"></li>`)].join(``)}
-            </ul>
-          </td>
-          ${(this.result === GAME_SETTING.fail) ? `<td class="result__total"></td>
-          <td colspan="5" class="result__total  result__total--final">fail</td>` : resultTemplate(this.data)}
-      </table>
+      ${this.data.map(resultTableTemplate)}
     </section>`;
   }
 

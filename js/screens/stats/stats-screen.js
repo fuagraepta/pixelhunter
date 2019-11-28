@@ -3,10 +3,11 @@ import HeaderView from '../header/header.js';
 import Router from '../../router.js';
 
 export default class StatsScreen {
-  constructor(model) {
-    this.model = model;
+  constructor(data) {
+    this.data = data.reverse();
+    this.data.length = 4;
     this.header = new HeaderView();
-    this.content = new StatsView(this.model.state, this.model.finalScore);
+    this.content = new StatsView(data);
     this.element = document.createElement(`div`);
     this.element.appendChild(this.header.element);
     this.element.appendChild(this.content.element);

@@ -7,7 +7,7 @@ import ErrorScreen from './screens/error-screen.js';
 import GameModel from './game-model.js';
 import Loader from './loader.js';
 import DEBUG from './tools/settings.js';
-import adaptServerData from './tools/data-adapter.js';
+import {GAME_SETTING} from './data/data.js';
 
 // Show created screen on main screen
 const mainScreen = document.querySelector(`#main`);
@@ -27,12 +27,12 @@ export default class Router {
     intro.start();
     Loader.loadData().
     then((data) => {
-      questionData = adaptServerData(data);
+      questionData = data;
       return questionData;
     }).
-    then(Router.showGreeting()).
+    then(() => setTimeout(() => Router.showGreeting(), GAME_SETTING.loadingTime)).
     catch(Router.showError).
-    then(() => intro.stop());
+    then(() => setTimeout(() => intro.stop(), GAME_SETTING.loadingTime));
   }
 
   static showGreeting() {
@@ -54,10 +54,15 @@ export default class Router {
     gameScreen.startGame();
   }
 
-  static showStats(model, result) {
-    const statistics = new StatsScreen(model, result);
-    statistics.changeScreen();
-    renderScreen(statistics.element);
+  static showStats(model) {
+    Loader.saveResults(model, model.playerName).
+    then(() => Loader.loadResults(model.playerName)).
+    then((data) => {
+      const statistics = new StatsScreen(data);
+      statistics.changeScreen();
+      renderScreen(statistics.element);
+    }).
+    catch(Router.showError);
   }
 
   static showError(error) {
