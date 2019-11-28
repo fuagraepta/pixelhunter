@@ -186,12 +186,14 @@ const GAME_SETTING = {
   pointPerAnswer: 100,
   bonusPoint: 50,
   maxLevel: 10,
+  loadingTime: 8000,
   second: 1000,
   endTime: 0,
   minTime: 10,
   maxTime: 20,
-  dead: 0,
+  dead: -1,
   fail: -1,
+  indexStep: 1,
 };
 
 const GAME_ANSWERS_FRAME = {
