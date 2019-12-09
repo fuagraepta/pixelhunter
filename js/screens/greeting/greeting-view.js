@@ -31,15 +31,6 @@ export default class GreetingView extends AbstractView {
     </section>`;
   }
 
-  get element() {
-    if (this._element) {
-      return this._element;
-    }
-    this._element = GreetingView.render(this.template);
-    this.bind();
-    return this._element;
-  }
-
   onContinueButtonClick() {}
 
   bind() {

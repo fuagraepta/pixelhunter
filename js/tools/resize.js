@@ -2,6 +2,7 @@ const resize = (frame, image) => {
   if (!image) {
     return frame;
   }
+
   const coefficient = image.width / image.height;
   const outOffWidth = image.width - frame.width;
   const outOffHeight = image.height - frame.height;

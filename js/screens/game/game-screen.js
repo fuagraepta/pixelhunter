@@ -1,6 +1,7 @@
 import HeaderView from '../header/header.js';
-import GameView from './game-view.js';
 import StatsBarView from '../stats/stats-bar.js';
+import GameView from './game-view.js';
+import ConfirmView from '../modal/confirm-view.js';
 import Router from '../../router.js';
 import {GAME_SETTING} from '../../data/data.js';
 
@@ -9,6 +10,7 @@ export default class GameScreen {
     this.model = model;
     this.header = new HeaderView(this.model.state);
     this.content = new GameView(this.model.getCurrentLevel());
+    this.modal = new ConfirmView();
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
@@ -31,6 +33,10 @@ export default class GameScreen {
       this._tick();
       this._abortLevel();
     }, GAME_SETTING.second);
+
+    if (this.model.state.time < GAME_SETTING.criticalTime) {
+      this.header.blink();
+    }
   }
 
   _abortLevel() {
@@ -49,8 +55,19 @@ export default class GameScreen {
 
   updateHeader() {
     const header = new HeaderView(this.model.state);
+
     this.root.replaceChild(header.element, this.header.element);
-    header.onBackButtonClick = () => Router.showGreeting();
+    header.onBackButtonClick = () => {
+      this.root.appendChild(this.modal.element);
+      this.modal.onOkButtonClick = () => {
+        this.stopGame();
+        Router.showGreeting();
+      };
+
+      this.modal.onCancelButtonClick = () => {
+        this.root.removeChild(this.modal.element);
+      };
+    };
     this.header = header;
   }
 

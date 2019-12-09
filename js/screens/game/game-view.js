@@ -86,15 +86,6 @@ export default class GameView extends AbstractView {
     </section>`;
   }
 
-  get element() {
-    if (this._element) {
-      return this._element;
-    }
-    this._element = AbstractView.render(this.template);
-    this.bind();
-    return this._element;
-  }
-
   onAnswer() {}
 
   bind() {

@@ -72,15 +72,7 @@ export default class StatsView extends AbstractView {
 
     return `<section class="result">
       <h2 class="result__title">Победа!</h2>
-      ${this.data.map(resultTableTemplate)}
+      ${this.data.map(resultTableTemplate).join(``)}
     </section>`;
-  }
-
-  get element() {
-    if (this._element) {
-      return this._element;
-    }
-    this._element = StatsView.render(this.template);
-    return this._element;
   }
 }

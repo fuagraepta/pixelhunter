@@ -3,14 +3,14 @@ import GreetingScreen from './screens/greeting/greeting-screen.js';
 import RulesScreen from './screens/rules/rules-screen.js';
 import GameScreen from './screens/game/game-screen.js';
 import StatsScreen from './screens/stats/stats-screen.js';
-import ErrorScreen from './screens/error-screen.js';
+import ErrorScreen from './screens/modal/error-screen.js';
 import GameModel from './game-model.js';
 import Loader from './loader.js';
 import DEBUG from './tools/settings.js';
-import {GAME_SETTING} from './data/data.js';
 
 // Show created screen on main screen
 const mainScreen = document.querySelector(`#main`);
+mainScreen.style.position = `relative`;
 const renderScreen = (element) => {
   mainScreen.innerHTML = ``;
   mainScreen.appendChild(element);
@@ -24,21 +24,22 @@ export default class Router {
     const intro = new IntroScreen();
     renderScreen(intro.element);
     intro.changeScreen();
-    intro.start();
+    intro.startLoad();
     Loader.loadData().
     then((data) => {
       questionData = data;
       return questionData;
     }).
-    then(() => setTimeout(() => Router.showGreeting(), GAME_SETTING.loadingTime)).
+    then(() => intro.beginCrossfade()).
     catch(Router.showError).
-    then(() => setTimeout(() => intro.stop(), GAME_SETTING.loadingTime));
+    then(() => intro.stopLoad());
   }
 
   static showGreeting() {
     const greeting = new GreetingScreen();
     greeting.changeScreen();
     renderScreen(greeting.element);
+    // greeting.beginCrossfade();
   }
 
   static showRules() {
@@ -67,6 +68,7 @@ export default class Router {
 
   static showError(error) {
     const errorScreen = new ErrorScreen(error);
-    renderScreen(errorScreen.element);
+    console.log(error);
+    mainScreen.appendChild(errorScreen.element);
   }
 }

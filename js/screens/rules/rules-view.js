@@ -26,15 +26,6 @@ export default class RulesView extends AbstractView {
     </section>`;
   }
 
-  get element() {
-    if (this._element) {
-      return this._element;
-    }
-    this._element = RulesView.render(this.template);
-    this.bind();
-    return this._element;
-  }
-
   onGoButtonClick() {}
 
   bind() {

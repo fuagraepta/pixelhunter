@@ -186,7 +186,7 @@ const GAME_SETTING = {
   pointPerAnswer: 100,
   bonusPoint: 50,
   maxLevel: 10,
-  loadingTime: 8000,
+  criticalTime: 6,
   second: 1000,
   endTime: 0,
   minTime: 10,
@@ -194,6 +194,15 @@ const GAME_SETTING = {
   dead: -1,
   fail: -1,
   indexStep: 1,
+};
+
+const OPACITY_SETTING = {
+  fullOpacity: 0,
+  min: 20,
+  max: 100,
+  step: 20,
+  blinkStep: 10,
+  duration: 100
 };
 
 const GAME_ANSWERS_FRAME = {
@@ -211,4 +220,4 @@ const GAME_ANSWERS_FRAME = {
   }
 };
 
-export {INITIAL_GAME, GAME_ANSWERS_FRAME, GAME_SETTING, levels};
+export {INITIAL_GAME, GAME_ANSWERS_FRAME, GAME_SETTING, levels, OPACITY_SETTING};
