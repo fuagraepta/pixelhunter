@@ -1,5 +1,5 @@
 import AbstractView from '../../abstract-view.js';
-import {GAME_SETTING} from '../../data/data.js';
+import {GAME_SETTING} from '../../tools/settings.js';
 
 export default class StatsBarView extends AbstractView {
   constructor(state) {

@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import countPoints from '../count-score.js';
-import {GAME_SETTING} from '../data/data.js';
+import countPoints from '../tools/count-score.js';
+import {GAME_SETTING} from '../tools/settings.js';
 
 describe(`Counting of points`, () => {
   it(`should return -1 if the number of correct answers is less than 10`, () => {

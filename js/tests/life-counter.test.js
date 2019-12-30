@@ -1,6 +1,7 @@
 import {assert} from 'chai';
-import die from '../life-counter.js';
-import {INITIAL_GAME, GAME_SETTING} from '../data/data.js';
+import die from '../tools/life-counter.js';
+import {INITIAL_GAME} from '../data/data.js';
+import {GAME_SETTING} from '../tools/settings.js';
 
 describe(`Counting the player life`, () => {
   it(`should return -1 if there is no lifes left`, () => {

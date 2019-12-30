@@ -1,6 +1,7 @@
 import {assert} from 'chai';
-import setTimer from '../timer-setup.js';
-import {INITIAL_GAME, GAME_SETTING} from '../data/data.js';
+import setTimer from '../tools/timer-setup.js';
+import {INITIAL_GAME} from '../data/data.js';
+import {GAME_SETTING} from '../tools/settings.js';
 
 describe(`Setup game timer`, () => {
   it(`should reduce the timer by 1 second`, () => {

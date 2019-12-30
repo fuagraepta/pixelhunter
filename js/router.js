@@ -6,11 +6,10 @@ import StatsScreen from './screens/stats/stats-screen.js';
 import ErrorScreen from './screens/modal/error-screen.js';
 import GameModel from './game-model.js';
 import Loader from './loader.js';
-import DEBUG from './tools/settings.js';
+import {DEBUG} from './tools/settings.js';
 
 // Show created screen on main screen
 const mainScreen = document.querySelector(`#main`);
-mainScreen.style.position = `relative`;
 const renderScreen = (element) => {
   mainScreen.innerHTML = ``;
   mainScreen.appendChild(element);
@@ -20,26 +19,28 @@ let questionData;
 
 export default class Router {
 
-  static showIntro() {
+  static start() {
+    Router.load().catch(Router.showError);
+  }
+
+  static async load() {
     const intro = new IntroScreen();
     renderScreen(intro.element);
     intro.changeScreen();
     intro.startLoad();
-    Loader.loadData().
-    then((data) => {
-      questionData = data;
-      return questionData;
-    }).
-    then(() => intro.beginCrossfade()).
-    catch(Router.showError).
-    then(() => intro.stopLoad());
+    try {
+      questionData = await Loader.loadData();
+      intro.beginCrossfade();
+    } finally {
+      intro.stopLoad();
+    }
   }
 
   static showGreeting() {
     const greeting = new GreetingScreen();
     greeting.changeScreen();
     renderScreen(greeting.element);
-    // greeting.beginCrossfade();
+    greeting.beginCrossfade();
   }
 
   static showRules() {
@@ -55,20 +56,19 @@ export default class Router {
     gameScreen.startGame();
   }
 
-  static showStats(model) {
-    Loader.saveResults(model, model.playerName).
-    then(() => Loader.loadResults(model.playerName)).
-    then((data) => {
-      const statistics = new StatsScreen(data);
+  static async showStats(model) {
+    try {
+      await Loader.saveResults(model, model.playerName);
+      const statistics = new StatsScreen(await Loader.loadResults(model.playerName));
       statistics.changeScreen();
       renderScreen(statistics.element);
-    }).
-    catch(Router.showError);
+    } catch (e) {
+      Router.showError(e);
+    }
   }
 
   static showError(error) {
     const errorScreen = new ErrorScreen(error);
-    console.log(error);
     mainScreen.appendChild(errorScreen.element);
   }
 }

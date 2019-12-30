@@ -3,7 +3,7 @@ import StatsBarView from '../stats/stats-bar.js';
 import GameView from './game-view.js';
 import ConfirmView from '../modal/confirm-view.js';
 import Router from '../../router.js';
-import {GAME_SETTING} from '../../data/data.js';
+import {GAME_SETTING} from '../../tools/settings.js';
 
 export default class GameScreen {
   constructor(model) {
@@ -108,7 +108,7 @@ export default class GameScreen {
         secondInput.value === secondAnswer.type;
         break;
       case `game-2`:
-        answerType = evt.target.value === level.answer.type;
+        answerType = evt.target.value === level.answers[0].type;
         break;
       case `game-3`:
         const gameOptions = this.content.element.querySelector(`.game__content`);

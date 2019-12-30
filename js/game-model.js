@@ -1,5 +1,6 @@
 import Answer from './data/answer.js';
-import {INITIAL_GAME, GAME_SETTING} from './data/data.js';
+import {INITIAL_GAME} from './data/data.js';
+import {GAME_SETTING} from './tools/settings.js';
 import changeLevel from './tools/change-level.js';
 import countPoint from './tools/count-score.js';
 import die from './tools/life-counter.js';
@@ -30,7 +31,7 @@ export default class GameModel {
 
   restart() {
     const answers = [];
-    this._state = Object.assign({}, INITIAL_GAME, {answers});
+    this._state = {...INITIAL_GAME, answers};
   }
 
   looseLife() {
@@ -47,7 +48,7 @@ export default class GameModel {
 
   resetTimer() {
     const time = INITIAL_GAME.time;
-    this._state = Object.assign({}, this._state, {time});
+    this._state = {...this._state, time};
   }
 
   updateScore(condition) {

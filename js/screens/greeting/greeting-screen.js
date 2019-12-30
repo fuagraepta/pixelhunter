@@ -1,6 +1,6 @@
 import GreetingView from './greeting-view.js';
 import Router from '../../router.js';
-import {OPACITY_SETTING} from '../../data/data.js';
+import {OPACITY_SETTING} from '../../tools/settings.js';
 
 export default class GreetingScreen {
   constructor() {

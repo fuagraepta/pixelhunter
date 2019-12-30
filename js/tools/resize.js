@@ -1,18 +1,37 @@
 const resize = (frame, image) => {
-  if (!image) {
-    return frame;
-  }
 
   const coefficient = image.width / image.height;
-  const outOffWidth = image.width - frame.width;
-  const outOffHeight = image.height - frame.height;
 
-  const expected = {
-    width: (outOffWidth >= outOffHeight) ? frame.width : Math.floor(frame.height * coefficient),
-    height: (outOffHeight > outOffWidth) ? frame.height : Math.floor(frame.width / coefficient)
+  const actualWidth = ((frame.width / coefficient) < frame.height)
+    ? frame.width
+    : frame.height * coefficient;
+
+  const actualHeight = ((frame.width / coefficient) < frame.height)
+    ? frame.width / coefficient
+    : frame.height;
+
+  return {
+    width: actualWidth,
+    height: actualHeight
   };
-
-  return expected;
 };
 
-export default resize;
+const preloadImage = (answer) => {
+  const image = new Image();
+
+  image.addEventListener(`load`, () => {
+    const imgSize = {
+      width: image.width,
+      height: image.height
+    };
+    image.width = resize(answer.image, imgSize).width;
+    image.height = resize(answer.image, imgSize).height;
+  });
+  image.src = answer.image.url;
+  return {
+    img: image,
+    type: answer.type.slice(0, 5)
+  };
+};
+
+export {resize, preloadImage};

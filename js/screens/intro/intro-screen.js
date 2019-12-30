@@ -1,6 +1,6 @@
 import IntroView from './intro-view.js';
 import Router from '../../router.js';
-import {OPACITY_SETTING} from '../../data/data.js';
+import {OPACITY_SETTING} from '../../tools/settings.js';
 
 const LOAD_DURATION = 300;
 
@@ -34,7 +34,9 @@ export default class IntroScreen {
   }
 
   changeScreen() {
-    this.content.onAsteriskButtonClick = () => Router.showGreeting();
+    this.content.onAsteriskButtonClick = () => {
+      this.beginCrossfade();
+    };
   }
 
   startLoad() {
