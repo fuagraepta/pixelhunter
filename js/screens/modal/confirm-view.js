@@ -3,6 +3,8 @@ import AbstractView from '../../abstract-view.js';
 export default class ConfirmView extends AbstractView {
   constructor() {
     super();
+    this._onOkButtonClickHandler = this._onOkButtonClickHandler.bind(this);
+    this._onCancelButtonClickHandler = this._onCancelButtonClickHandler.bind(this);
   }
 
   get template() {
@@ -21,27 +23,32 @@ export default class ConfirmView extends AbstractView {
     </section>`;
   }
 
+  _onOkButtonClickHandler(evt) {
+    evt.preventDefault();
+    this.onOkButtonClick();
+    evt.target.removeEventListener(`click`, this._onOkButtonClickHandler);
+    evt.target.closest(`.modal__inner`).removeEventListener(`click`,
+        this._onCancelButtonClickHandler);
+  }
+
+  _onCancelButtonClickHandler(evt) {
+    const modalClose = this.element.querySelector(`.modal__close`);
+    const cancelButton = this.element.querySelectorAll(`.modal__btn`)[1];
+    if (evt.target === modalClose || evt.target === cancelButton) {
+      evt.preventDefault();
+      this.onCancelButtonClick();
+    }
+  }
+
   onOkButtonClick() {}
 
   onCancelButtonClick() {}
 
   bind() {
-    const [okButton, cancelButton] = this.element.querySelectorAll(`.modal__btn`);
-    const modalClose = this.element.querySelector(`.modal__close`);
+    const okButton = this.element.querySelectorAll(`.modal__btn`)[0];
+    const modalInner = this.element.querySelector(`.modal__inner`);
 
-    okButton.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      this.onOkButtonClick();
-    });
-
-    cancelButton.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      this.onCancelButtonClick();
-    });
-
-    modalClose.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      this.onCancelButtonClick();
-    });
+    okButton.addEventListener(`click`, this._onOkButtonClickHandler);
+    modalInner.addEventListener(`click`, this._onCancelButtonClickHandler);
   }
 }

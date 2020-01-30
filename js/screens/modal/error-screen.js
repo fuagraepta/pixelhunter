@@ -13,8 +13,6 @@ export default class ErrorScreen extends AbstractView {
           <p class="modal__text modal__text--error">Статус: ${this.error.message}
           Пожалуйста, перезагрузите страницу.
           </p>
-          <p>
-          </p>
         </div>
       </section>`;
   }

@@ -1,6 +1,4 @@
 import IntroView from './intro-view.js';
-import Router from '../../router.js';
-import {OPACITY_SETTING} from '../../tools/settings.js';
 
 const LOAD_DURATION = 50;
 const DEGREE_STEP = 10;
@@ -20,23 +18,6 @@ export default class IntroScreen {
     this.asterisk = this.element.querySelector(`.asterisk`);
     this.asterisk.style.transformOrigin = `50% 30%`;
     this.asteriskDegree = 0;
-  }
-
-  beginCrossfade() {
-    this.elementOpacity = this.elementOpacity <= OPACITY_SETTING.min ? OPACITY_SETTING.min : this.elementOpacity - OPACITY_SETTING.step;
-    this.element.style.opacity = `${this.elementOpacity}%`;
-    this.crossfadeTimeOut = setTimeout(() => this.beginCrossfade(), OPACITY_SETTING.duration);
-
-    if (this.elementOpacity === OPACITY_SETTING.min) {
-      clearTimeout(this.crossfadeTimeOut);
-      Router.showGreeting();
-    }
-  }
-
-  changeScreen() {
-    this.content.onAsteriskButtonClick = () => {
-      this.beginCrossfade();
-    };
   }
 
   startLoad() {

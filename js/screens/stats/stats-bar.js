@@ -8,11 +8,13 @@ export default class StatsBarView extends AbstractView {
   }
 
   get template() {
-    const resultTemplate = (answer) => `<li class="stats__result stats__result--${answer.type}"></li>`;
+    const resultTemplate = (answer) => `<li class="stats__result stats__result--${answer.type}">
+    </li>`;
 
     return `<ul class="stats">
     ${[...this.state.answers.map(resultTemplate), ...new Array(GAME_SETTING.maxLevel -
-      this.state.answers.length).fill(`<li class="stats__result stats__result--unknown"></li>`)].join(``)}
+      this.state.answers.length).fill(`<li class="stats__result stats__result--unknown">
+      </li>`)].join(``)}
   </ul>`;
   }
 }

@@ -3,14 +3,18 @@ import AbstractView from '../../abstract-view.js';
 export default class GreetingView extends AbstractView {
   constructor() {
     super();
+    this._onContinueButtonClickHandler = this._onContinueButtonClickHandler.bind(this);
   }
 
   get template() {
     return `<section class="greeting central--blur">
-      <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
-      <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
+      <img class="greeting__logo" src="img/logo_ph-big.svg" width="201"
+      height="89" alt="Pixel Hunter">
+      <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я
+      просто красивая звёздочка</span>*</div>
       <div class="greeting__challenge">
-        <h3 class="greeting__challenge-title">Лучшие художники-фотореалисты бросают тебе вызов!</h3>
+        <h3 class="greeting__challenge-title">Лучшие художники-фотореалисты
+        бросают тебе вызов!</h3>
         <p class="greeting__challenge-text">Правила игры просты:</p>
         <ul class="greeting__challenge-list">
           <li>Нужно отличить рисунок от фотографии и сделать выбор.</li>
@@ -31,15 +35,19 @@ export default class GreetingView extends AbstractView {
     </section>`;
   }
 
+  _onContinueButtonClickHandler(evt) {
+    evt.preventDefault();
+    this.onContinueButtonClick();
+    evt.target.closest(`.greeting__continue`).removeEventListener(`click`,
+        this._onContinueButtonClickHandler);
+  }
+
   onContinueButtonClick() {}
 
   bind() {
     // Do someting when you press the arrow-button
     const continueButton = this.element.querySelector(`.greeting__continue`);
 
-    continueButton.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      this.onContinueButtonClick();
-    });
+    continueButton.addEventListener(`click`, this._onContinueButtonClickHandler);
   }
 }

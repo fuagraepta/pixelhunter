@@ -9,6 +9,7 @@ export default class StatsScreen {
     this.header = new HeaderView();
     this.content = new StatsView(data);
     this.element = document.createElement(`div`);
+    this.element.classList.add(`wrapper`);
     this.element.appendChild(this.header.element);
     this.element.appendChild(this.content.element);
   }

@@ -1,6 +1,11 @@
 import AbstractView from '../../abstract-view.js';
 import {INITIAL_GAME} from '../../data/data.js';
-import {OPACITY_SETTING} from '../../tools/settings.js';
+
+const OPACITY_SETTING = {
+  fullOpacity: 0,
+  blinkStep: 10,
+  duration: 80
+};
 
 export default class HeaderView extends AbstractView {
   constructor(state) {

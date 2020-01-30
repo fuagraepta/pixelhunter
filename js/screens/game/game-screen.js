@@ -12,6 +12,7 @@ export default class GameScreen {
     this.content = new GameView(this.model.getCurrentLevel());
     this.modal = new ConfirmView();
     this.root = document.createElement(`div`);
+    this.root.classList.add(`wrapper`);
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
     this.content.element.appendChild(new StatsBarView(this.model.state).element);
@@ -20,15 +21,15 @@ export default class GameScreen {
 
   startGame() {
     this.content.onAnswer = (evt) => {
-      this.answer(this.model.getCurrentLevel(), evt);
-      this.changeLevel();
+      this._answer(this.model.getCurrentLevel(), evt);
+      this._changeLevel();
     };
     this._tick();
   }
 
   _tick() {
     this.model.tick();
-    this.updateHeader();
+    this._updateHeader();
     this._timer = setTimeout(() => {
       this._tick();
       this._abortLevel();
@@ -43,25 +44,26 @@ export default class GameScreen {
     if (this.model.state.time === GAME_SETTING.endTime) {
       this.model.updateScore(false);
       this.model.looseLife();
-      this.stopGame();
-      this.continueGame();
+      this._stopGame();
+      this._continueGame();
     }
   }
 
-  stopGame() {
+  _stopGame() {
     clearInterval(this._timer);
     this.model.resetTimer();
   }
 
-  updateHeader() {
+  _updateHeader() {
     const header = new HeaderView(this.model.state);
 
     this.root.replaceChild(header.element, this.header.element);
     header.onBackButtonClick = () => {
       this.root.appendChild(this.modal.element);
       this.modal.onOkButtonClick = () => {
-        this.stopGame();
+        this._stopGame();
         Router.showGreeting();
+        this.content.removeAnswerEventListener();
       };
 
       this.modal.onCancelButtonClick = () => {
@@ -71,31 +73,32 @@ export default class GameScreen {
     this.header = header;
   }
 
-  changeContentView(view) {
+  _changeContentView(view) {
     this.root.replaceChild(view.element, this.content.element);
     this.content = view;
   }
 
-  changeLevel() {
-    this.updateHeader();
+  _changeLevel() {
+    this._updateHeader();
     this.model.nextLevel();
     this._tick();
+    this.content.removeAnswerEventListener();
 
     const content = new GameView(this.model.getCurrentLevel());
-    this.changeContentView(content);
+    this._changeContentView(content);
     this.content.element.appendChild(new StatsBarView(this.model.state).element);
     this.content.onAnswer = (evt) => {
-      this.answer(this.model.getCurrentLevel(), evt);
-      this.continueGame();
+      this._answer(this.model.getCurrentLevel(), evt);
+      this._continueGame();
     };
   }
 
-  continueGame() {
-    return (this.model.hasNextLevel() || this.model.isGameOver()) ? this.endGame() :
-      this.changeLevel();
+  _continueGame() {
+    return (this.model.hasNextLevel() || this.model.isGameOver())
+      ? this._endGame() : this._changeLevel();
   }
 
-  answer(level, evt) {
+  _answer(level, evt) {
 
     let answerType = null;
 
@@ -116,7 +119,8 @@ export default class GameScreen {
         const photoArray = level.answers.filter((value) => value.type === `photo`);
         const answerIndex = [...gameOptions.children].indexOf(evt.target.closest(`.game__option`));
 
-        answerType = (paintArray.length < photoArray.length) ? level.answers[answerIndex].type === `paint` :
+        answerType = (paintArray.length < photoArray.length) ?
+          level.answers[answerIndex].type === `paint` :
           level.answers[answerIndex].type === `photo`;
         break;
     }
@@ -125,10 +129,11 @@ export default class GameScreen {
       this.model.looseLife();
     }
     this.model.updateScore(answerType);
-    this.stopGame();
+    this._stopGame();
   }
 
-  endGame() {
+  _endGame() {
+    this.content.removeAnswerEventListener();
     Router.showStats(this.model);
   }
 }

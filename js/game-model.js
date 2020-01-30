@@ -52,7 +52,8 @@ export default class GameModel {
   }
 
   updateScore(condition) {
-    const answer = (condition) ? new Answer(true, this._state.time) : new Answer(false, this._state.time);
+    const answer = (condition)
+      ? new Answer(true, this._state.time) : new Answer(false, this._state.time);
     answer.countSpeedType();
     this._state.answers.push(answer);
   }

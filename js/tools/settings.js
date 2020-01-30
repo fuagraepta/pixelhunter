@@ -18,15 +18,6 @@ const GAME_SETTING = {
   indexStep: 1,
 };
 
-const OPACITY_SETTING = {
-  fullOpacity: 0,
-  min: 20,
-  max: 100,
-  step: 20,
-  blinkStep: 10,
-  duration: 100
-};
-
 const GAME_ANSWERS_FRAME = {
   'game-1': {
     width: 468,
@@ -42,4 +33,4 @@ const GAME_ANSWERS_FRAME = {
   }
 };
 
-export {DEBUG, GAME_SETTING, OPACITY_SETTING, GAME_ANSWERS_FRAME};
+export {DEBUG, GAME_SETTING, GAME_ANSWERS_FRAME};

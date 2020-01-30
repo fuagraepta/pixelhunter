@@ -7,6 +7,7 @@ export default class RulesScreen {
     this.header = new HeaderView();
     this.content = new RulesView();
     this.element = document.createElement(`div`);
+    this.element.classList.add(`wrapper`);
     this.element.appendChild(this.header.element);
     this.element.appendChild(this.content.element);
   }
@@ -17,10 +18,12 @@ export default class RulesScreen {
 
   goPreviosScreen() {
     this.header.onBackButtonClick = () => Router.showGreeting();
+    this.content.removeRulesEventListener();
   }
 
   goNextScreen() {
     this.content.onGoButtonClick = () => Router.showGame(this.playerName);
+    this.content.removeRulesEventListener();
   }
 
   changeScreen() {

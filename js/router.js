@@ -9,16 +9,31 @@ import Loader from './loader.js';
 import {DEBUG} from './tools/settings.js';
 
 // Show created screen on main screen
-const mainScreen = document.querySelector(`#main`);
+const central = document.querySelector(`.central`);
+const mainScreen = central.querySelector(`#main`);
 const renderScreen = (element) => {
   mainScreen.innerHTML = ``;
   mainScreen.appendChild(element);
 };
 
+const renderFadeAnimationScreen = (fadeOutScreen, fadeInScreen) => {
+  central.classList.add(`central--stack-screens`);
+
+  const onElementAnimationEnd = () => {
+    central.classList.remove(`central--animate-screens`);
+    central.classList.remove(`central--stack-screens`);
+
+    fadeOutScreen.removeEventListener(`animationend`, onElementAnimationEnd);
+    mainScreen.removeChild(fadeOutScreen);
+  };
+  fadeOutScreen.addEventListener(`animationend`, onElementAnimationEnd);
+  mainScreen.appendChild(fadeInScreen);
+  central.classList.add(`central--animate-screens`);
+};
+
 let questionData;
 
 export default class Router {
-
   static start() {
     Router.load().catch(Router.showError);
   }
@@ -26,21 +41,20 @@ export default class Router {
   static async load() {
     const intro = new IntroScreen();
     renderScreen(intro.element);
-    intro.changeScreen();
     intro.startLoad();
     try {
       questionData = await Loader.loadData();
-      intro.beginCrossfade();
+      Router.showGreeting();
     } finally {
       intro.stopLoad();
     }
   }
 
   static showGreeting() {
+    const currentScreen = mainScreen.firstElementChild;
     const greeting = new GreetingScreen();
     greeting.changeScreen();
-    renderScreen(greeting.element);
-    greeting.beginCrossfade();
+    renderFadeAnimationScreen(currentScreen, greeting.element);
   }
 
   static showRules() {

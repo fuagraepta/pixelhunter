@@ -16,16 +16,4 @@ export default class IntroView extends AbstractView {
       </button>
     </section>`;
   }
-
-  onAsteriskButtonClick() {}
-
-  bind() {
-    // Do something when press the asterisk button
-    const asteriskButton = this.element.querySelector(`.intro__asterisk`);
-
-    asteriskButton.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      this.onAsteriskButtonClick();
-    });
-  }
 }
