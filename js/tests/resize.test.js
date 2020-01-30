@@ -1,5 +1,5 @@
 import assert from 'assert';
-import resize from '../resize.js';
+import {resize} from '../tools/resize.js';
 
 const createTestForFrame = (frame) => {
   const assertRatio = (given, expected) => {
@@ -12,7 +12,8 @@ const createTestForFrame = (frame) => {
       width: Math.floor(expected.width * multiplier),
       height: Math.floor(expected.height * multiplier)
     };
-    it(`shrink ${multiplier}x: ${given.width}x${given.height} => ${expected.width}x${expected.height}`, () => {
+    it(`shrink ${multiplier}x: ${given.width}x${given.height} =>
+      ${expected.width}x${expected.height}`, () => {
       assertRatio(given, expected);
     });
   };

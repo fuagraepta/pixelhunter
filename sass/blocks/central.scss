@@ -11,6 +11,56 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  &--stack-screens {
+    & .greeting {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      margin: 0 auto;
+      opacity: 0;
+    }
+
+    & .central__content:first-child {
+      z-index: 2;
+      opacity: 1;
+    }
+  }
+
+  &--animate-screens {
+    & .intro,
+    .wrapper {
+      animation: fadeout 1s linear;
+      animation-fill-mode: forwards;
+    }
+
+    & .greeting {
+      animation: fadein 1s linear;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 .central__content {

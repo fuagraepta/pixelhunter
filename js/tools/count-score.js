@@ -11,7 +11,8 @@ const countPoints = (answers, lives, variables) => {
     if (answer.time > variables.maxTime) {
       score += variables.bonusPoint;
     }
-    score += (answer.time < variables.minTime) ? variables.bonusPoint : variables.pointPerAnswer;
+    score += (answer.time < variables.minTime) ? variables.bonusPoint :
+      variables.pointPerAnswer;
   }
   return score + lives * variables.bonusPoint;
 };

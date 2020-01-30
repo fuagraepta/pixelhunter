@@ -3,6 +3,8 @@ import AbstractView from '../../abstract-view.js';
 export default class RulesView extends AbstractView {
   constructor() {
     super();
+    this._onGoButtonClickHandler = this._onGoButtonClickHandler.bind(this);
+    this.rulesInput = null;
   }
 
   get template() {
@@ -26,32 +28,29 @@ export default class RulesView extends AbstractView {
     </section>`;
   }
 
-  get element() {
-    if (this._element) {
-      return this._element;
-    }
-    this._element = RulesView.render(this.template);
-    this.bind();
-    return this._element;
+  _onGoButtonClickHandler(evt) {
+    evt.preventDefault();
+    this.onGoButtonClick();
+  }
+
+  removeRulesEventListener() {
+    this.rulesInput.removeEventListener(`click`, this._onGoButtonClickHandler);
   }
 
   onGoButtonClick() {}
 
   bind() {
     // When entering data the button "GO" is unlock
-    const rulesInput = this.element.querySelector(`.rules__input`);
+    this.rulesInput = this.element.querySelector(`.rules__input`);
 
-    rulesInput.addEventListener(`input`, (evt) => {
+    this.rulesInput.addEventListener(`input`, (evt) => {
       evt.preventDefault();
-      goButton.disabled = (rulesInput.value.trim()) ? false : true;
+      goButton.disabled = (this.rulesInput.value.trim()) ? false : true;
     });
 
     // Do something when you press "GO"
     const goButton = this.element.querySelector(`.rules__button`);
 
-    goButton.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      this.onGoButtonClick();
-    });
+    goButton.addEventListener(`click`, this._onGoButtonClickHandler);
   }
 }

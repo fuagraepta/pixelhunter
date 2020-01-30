@@ -5,10 +5,8 @@ const die = (game, variables) => {
   if (game.lives === variables.dead) {
     return variables.fail;
   }
-  let lives = game.lives;
-  --lives;
-  const newGame = Object.assign({}, game, {lives});
-  return newGame;
+
+  return {...game, lives: game.lives - 1};
 };
 
 export default die;

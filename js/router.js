@@ -3,42 +3,58 @@ import GreetingScreen from './screens/greeting/greeting-screen.js';
 import RulesScreen from './screens/rules/rules-screen.js';
 import GameScreen from './screens/game/game-screen.js';
 import StatsScreen from './screens/stats/stats-screen.js';
-import ErrorScreen from './screens/error-screen.js';
+import ErrorScreen from './screens/modal/error-screen.js';
 import GameModel from './game-model.js';
 import Loader from './loader.js';
-import DEBUG from './tools/settings.js';
-import {GAME_SETTING} from './data/data.js';
+import {DEBUG} from './tools/settings.js';
 
 // Show created screen on main screen
-const mainScreen = document.querySelector(`#main`);
+const central = document.querySelector(`.central`);
+const mainScreen = central.querySelector(`#main`);
 const renderScreen = (element) => {
   mainScreen.innerHTML = ``;
   mainScreen.appendChild(element);
 };
 
+const renderFadeAnimationScreen = (fadeOutScreen, fadeInScreen) => {
+  central.classList.add(`central--stack-screens`);
+
+  const onElementAnimationEnd = () => {
+    central.classList.remove(`central--animate-screens`);
+    central.classList.remove(`central--stack-screens`);
+
+    fadeOutScreen.removeEventListener(`animationend`, onElementAnimationEnd);
+    mainScreen.removeChild(fadeOutScreen);
+  };
+  fadeOutScreen.addEventListener(`animationend`, onElementAnimationEnd);
+  mainScreen.appendChild(fadeInScreen);
+  central.classList.add(`central--animate-screens`);
+};
+
 let questionData;
 
 export default class Router {
+  static start() {
+    Router.load().catch(Router.showError);
+  }
 
-  static showIntro() {
+  static async load() {
     const intro = new IntroScreen();
     renderScreen(intro.element);
-    intro.changeScreen();
-    intro.start();
-    Loader.loadData().
-    then((data) => {
-      questionData = data;
-      return questionData;
-    }).
-    then(() => setTimeout(() => Router.showGreeting(), GAME_SETTING.loadingTime)).
-    catch(Router.showError).
-    then(() => setTimeout(() => intro.stop(), GAME_SETTING.loadingTime));
+    intro.startLoad();
+    try {
+      questionData = await Loader.loadData();
+      Router.showGreeting();
+    } finally {
+      intro.stopLoad();
+    }
   }
 
   static showGreeting() {
+    const currentScreen = mainScreen.firstElementChild;
     const greeting = new GreetingScreen();
     greeting.changeScreen();
-    renderScreen(greeting.element);
+    renderFadeAnimationScreen(currentScreen, greeting.element);
   }
 
   static showRules() {
@@ -54,19 +70,19 @@ export default class Router {
     gameScreen.startGame();
   }
 
-  static showStats(model) {
-    Loader.saveResults(model, model.playerName).
-    then(() => Loader.loadResults(model.playerName)).
-    then((data) => {
-      const statistics = new StatsScreen(data);
+  static async showStats(model) {
+    try {
+      await Loader.saveResults(model, model.playerName);
+      const statistics = new StatsScreen(await Loader.loadResults(model.playerName));
       statistics.changeScreen();
       renderScreen(statistics.element);
-    }).
-    catch(Router.showError);
+    } catch (e) {
+      Router.showError(e);
+    }
   }
 
   static showError(error) {
     const errorScreen = new ErrorScreen(error);
-    renderScreen(errorScreen.element);
+    mainScreen.appendChild(errorScreen.element);
   }
 }

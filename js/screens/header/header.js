@@ -1,10 +1,18 @@
 import AbstractView from '../../abstract-view.js';
 import {INITIAL_GAME} from '../../data/data.js';
 
+const OPACITY_SETTING = {
+  fullOpacity: 0,
+  blinkStep: 10,
+  duration: 80
+};
+
 export default class HeaderView extends AbstractView {
   constructor(state) {
     super();
     this.state = state;
+    this.timer = this.element.querySelector(`.game__timer`);
+    this.timerOpacity = 100;
   }
 
   get template() {
@@ -31,15 +39,6 @@ export default class HeaderView extends AbstractView {
     </header>`;
   }
 
-  get element() {
-    if (this._element) {
-      return this._element;
-    }
-    this._element = AbstractView.render(this.template);
-    this.bind();
-    return this._element;
-  }
-
   onBackButtonClick() {}
 
   bind() {
@@ -50,5 +49,14 @@ export default class HeaderView extends AbstractView {
       evt.preventDefault();
       this.onBackButtonClick();
     });
+  }
+
+  blink() {
+    this.timerOpacity = this.timerOpacity - OPACITY_SETTING.blinkStep;
+    this.timer.style.opacity = `${this.timerOpacity}%`;
+    this.blinkTimeOut = setTimeout(() => this.blink(), OPACITY_SETTING.duration);
+    if (this.timerOpacity === OPACITY_SETTING.fullOpacity) {
+      clearTimeout(this.blinkTimeOut);
+    }
   }
 }

@@ -1,37 +1,34 @@
 import IntroView from './intro-view.js';
-import Router from '../../router.js';
-import {GAME_SETTING} from '../../data/data.js';
+
+const LOAD_DURATION = 50;
+const DEGREE_STEP = 10;
 
 export default class IntroScreen {
   constructor() {
     this.content = new IntroView();
     this.element = this.content.element;
-    this.cursor = 0;
+    this.elementOpacity = 100;
     this.loadSymbols = [``, `.`, `..`, `...`];
     this.loadingIndicator = document.createElement(`span`);
-  }
-
-  setloadingIndicatorStyle() {
     this.loadingIndicator.style.cssText = `
       position: absolute;
       top: 50%;
       left: 49%;
     `;
+    this.asterisk = this.element.querySelector(`.asterisk`);
+    this.asterisk.style.transformOrigin = `50% 30%`;
+    this.asteriskDegree = 0;
   }
 
-  changeScreen() {
-    this.content.onAsteriskButtonClick = () => Router.showGreeting();
-  }
-
-  start() {
+  startLoad() {
     this.element.appendChild(this.loadingIndicator);
-    this.setloadingIndicatorStyle();
-    this.cursor = ++this.cursor >= this.loadSymbols.length ? 0 : this.cursor;
-    this.loadingIndicator.textContent = `Loading` + this.loadSymbols[this.cursor];
-    this.timeOut = setTimeout(() => this.start(), GAME_SETTING.second);
+    this.loadingIndicator.textContent = `Loading`;
+    this.asteriskDegree += DEGREE_STEP;
+    this.asterisk.style.transform = `rotate(${this.asteriskDegree}deg)`;
+    this.timeOut = setTimeout(() => this.startLoad(), LOAD_DURATION);
   }
 
-  stop() {
+  stopLoad() {
     clearTimeout(this.timeOut);
   }
 }

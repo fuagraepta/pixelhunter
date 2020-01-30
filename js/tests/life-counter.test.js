@@ -1,15 +1,16 @@
 import {assert} from 'chai';
-import die from '../life-counter.js';
-import {INITIAL_GAME, GAME_SETTING} from '../data/data.js';
+import die from '../tools/life-counter.js';
+import {INITIAL_GAME} from '../data/data.js';
+import {GAME_SETTING} from '../tools/settings.js';
 
-describe(`Counting the player life`, () => {
-  it(`should return -1 if there is no lifes left`, () => {
+describe(`Counting the player live`, () => {
+  it(`should return -1 if there is no lives left`, () => {
     const testGame = {
       lives: -1
     };
     assert.equal(die(testGame, GAME_SETTING), -1);
   });
-  it(`should return lifes -1 if the answer is't correct`, () => {
+  it(`should return lives -1 if the answer is't correct`, () => {
     const gamaOne = {
       lives: 2
     };

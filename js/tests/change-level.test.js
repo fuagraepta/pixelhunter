@@ -1,6 +1,7 @@
 import {assert} from 'chai';
-import changeLevel from '../change-level.js';
-import {INITIAL_GAME, GAME_SETTING} from '../data/data.js';
+import changeLevel from '../tools/change-level.js';
+import {INITIAL_GAME} from '../data/data.js';
+import {GAME_SETTING} from '../tools/settings.js';
 
 describe(`Change level`, () => {
   it(`should change the level when the player answered the question`, () => {
