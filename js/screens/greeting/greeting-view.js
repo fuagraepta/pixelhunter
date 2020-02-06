@@ -38,16 +38,18 @@ export default class GreetingView extends AbstractView {
   _onContinueButtonClickHandler(evt) {
     evt.preventDefault();
     this.onContinueButtonClick();
-    evt.target.closest(`.greeting__continue`).removeEventListener(`click`,
+  }
+
+  removeContinueButtonListener() {
+    this.continueButton.removeEventListener(`click`,
         this._onContinueButtonClickHandler);
   }
 
   onContinueButtonClick() {}
 
   bind() {
-    // Do someting when you press the arrow-button
-    const continueButton = this.element.querySelector(`.greeting__continue`);
+    this.continueButton = this.element.querySelector(`.greeting__continue`);
 
-    continueButton.addEventListener(`click`, this._onContinueButtonClickHandler);
+    this.continueButton.addEventListener(`click`, this._onContinueButtonClickHandler);
   }
 }

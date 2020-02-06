@@ -16,21 +16,6 @@ const renderScreen = (element) => {
   mainScreen.appendChild(element);
 };
 
-const renderFadeAnimationScreen = (fadeOutScreen, fadeInScreen) => {
-  central.classList.add(`central--stack-screens`);
-
-  const onElementAnimationEnd = () => {
-    central.classList.remove(`central--animate-screens`);
-    central.classList.remove(`central--stack-screens`);
-
-    fadeOutScreen.removeEventListener(`animationend`, onElementAnimationEnd);
-    mainScreen.removeChild(fadeOutScreen);
-  };
-  fadeOutScreen.addEventListener(`animationend`, onElementAnimationEnd);
-  mainScreen.appendChild(fadeInScreen);
-  central.classList.add(`central--animate-screens`);
-};
-
 let questionData;
 
 export default class Router {
@@ -50,11 +35,24 @@ export default class Router {
     }
   }
 
+  // Rendering greeting screen using cross fade;
   static showGreeting() {
     const currentScreen = mainScreen.firstElementChild;
     const greeting = new GreetingScreen();
-    greeting.changeScreen();
-    renderFadeAnimationScreen(currentScreen, greeting.element);
+    const onElementAnimationEnd = () => {
+      central.classList.remove(`central--animate-screens`);
+      central.classList.remove(`central--stack-screens`);
+
+      currentScreen.removeEventListener(`animationend`, onElementAnimationEnd);
+      mainScreen.removeChild(currentScreen);
+      greeting.changeScreen();
+    };
+
+    central.classList.add(`central--stack-screens`);
+    currentScreen.addEventListener(`animationend`, onElementAnimationEnd);
+    mainScreen.appendChild(greeting.element);
+    central.classList.add(`central--animate-screens`);
+
   }
 
   static showRules() {

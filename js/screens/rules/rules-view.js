@@ -4,7 +4,6 @@ export default class RulesView extends AbstractView {
   constructor() {
     super();
     this._onGoButtonClickHandler = this._onGoButtonClickHandler.bind(this);
-    this.rulesInput = null;
   }
 
   get template() {
@@ -40,7 +39,6 @@ export default class RulesView extends AbstractView {
   onGoButtonClick() {}
 
   bind() {
-    // When entering data the button "GO" is unlock
     this.rulesInput = this.element.querySelector(`.rules__input`);
 
     this.rulesInput.addEventListener(`input`, (evt) => {
@@ -48,7 +46,6 @@ export default class RulesView extends AbstractView {
       goButton.disabled = (this.rulesInput.value.trim()) ? false : true;
     });
 
-    // Do something when you press "GO"
     const goButton = this.element.querySelector(`.rules__button`);
 
     goButton.addEventListener(`click`, this._onGoButtonClickHandler);
