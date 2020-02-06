@@ -16,18 +16,22 @@ export default class RulesScreen {
     return this.element.querySelector(`.rules__input`).value;
   }
 
-  goPreviosScreen() {
-    this.header.onBackButtonClick = () => Router.showGreeting();
-    this.content.removeRulesEventListener();
+  goToPreviosScreen() {
+    this.header.onBackButtonClick = () => {
+      Router.showGreeting();
+      this.content.removeRulesEventListener();
+    };
   }
 
-  goNextScreen() {
-    this.content.onGoButtonClick = () => Router.showGame(this.playerName);
-    this.content.removeRulesEventListener();
+  goToNextScreen() {
+    this.content.onGoButtonClick = () => {
+      Router.showGame(this.playerName);
+      this.content.removeRulesEventListener();
+    };
   }
 
   changeScreen() {
-    this.goPreviosScreen();
-    this.goNextScreen();
+    this.goToPreviosScreen();
+    this.goToNextScreen();
   }
 }

@@ -20,6 +20,7 @@ export default class GameScreen {
   }
 
   startGame() {
+    this._updateHeader();
     this.content.onAnswer = (evt) => {
       this._answer(this.model.getCurrentLevel(), evt);
       this._changeLevel();
@@ -28,16 +29,16 @@ export default class GameScreen {
   }
 
   _tick() {
+    if (this.model.state.time < GAME_SETTING.criticalTime) {
+      this.header.blink();
+    }
+
     this.model.tick();
-    this._updateHeader();
+    this._updateTimer();
     this._timer = setTimeout(() => {
       this._tick();
       this._abortLevel();
     }, GAME_SETTING.second);
-
-    if (this.model.state.time < GAME_SETTING.criticalTime) {
-      this.header.blink();
-    }
   }
 
   _abortLevel() {
@@ -52,6 +53,11 @@ export default class GameScreen {
   _stopGame() {
     clearInterval(this._timer);
     this.model.resetTimer();
+  }
+
+  _updateTimer() {
+    const timerElement = this.header.element.querySelector(`.timer__wrapper`);
+    timerElement.innerHTML = this.model.state.time;
   }
 
   _updateHeader() {
