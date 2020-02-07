@@ -29,11 +29,12 @@ export default class GameScreen {
   }
 
   _tick() {
+    this.model.tick();
+
     if (this.model.state.time < GAME_SETTING.criticalTime) {
       this.header.blink();
     }
 
-    this.model.tick();
     this._updateTimer();
     this._timer = setTimeout(() => {
       this._tick();
