@@ -927,7 +927,7 @@
     return data;
   };
 
-  const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
+  const SERVER_URL = `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter`;
   const DEFAULT_NAME = `bob`;
   const APP_ID = 94750153;
 
