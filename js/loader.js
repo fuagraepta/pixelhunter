@@ -1,6 +1,6 @@
 import adaptServerData from './tools/data-adapter.js';
 
-const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
+const SERVER_URL = `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`;
 const DEFAULT_NAME = `bob`;
 const APP_ID = 94750153;
 
